@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #0A0A0A;
+    background-color: #FFFFFF;
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  h1 {
+    font-size: 4rem !important;
+    font-weight: 400 !important;
+  }
+
+  h2 {
+    font-size: 3rem !important;
+    font-weight: 400 !important;
+  }
+
+  h3 {
+    font-size: 2rem !important;
+    font-weight: 400 !important;
+  }
+
+  button {
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+
+  input, textarea, select {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Keyframes */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Custom animations */
+  .animate-fade-in {
+    animation: fadeIn 400ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 400ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+  }
+
+  /* Scroll reveal utility */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms cubic-bezier(0.4, 0.0, 0.2, 1),
+                transform 400ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* GPU acceleration */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
