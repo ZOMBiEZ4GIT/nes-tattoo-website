@@ -58,7 +58,7 @@ export default function AboutPage() {
             About Me
           </h1>
           <p className="text-[1.1875rem] leading-relaxed text-gray max-w-[720px] mx-auto">
-            Every tattoo tells a story. I'm here to help you tell yours through
+            Every tattoo tells a story. I&apos;m here to help you tell yours through
             ink that lasts a lifetime.
           </p>
         </section>
@@ -84,7 +84,7 @@ export default function AboutPage() {
                   My Story
                 </h2>
                 <p className="text-[1.0625rem] leading-relaxed text-gray mb-7">
-                  I've been tattooing professionally for over a decade,
+                  I&apos;ve been tattooing professionally for over a decade,
                   transforming skin into canvas and turning visions into art.
                   What started as a passion in my garage has evolved into a
                   craft I dedicate myself to every single day.
@@ -92,8 +92,8 @@ export default function AboutPage() {
                 <p className="text-[1.0625rem] leading-relaxed text-gray mb-7">
                   I specialize in custom designs and cover-ups, believing that
                   every piece should be as unique as the person wearing it.
-                  Whether you're looking to bring a new idea to life or
-                  transform an old tattoo into something you'll love, I approach
+                  Whether you&apos;re looking to bring a new idea to life or
+                  transform an old tattoo into something you&apos;ll love, I approach
                   each project with the same care and attention to detail.
                 </p>
                 <p className="text-[1.0625rem] leading-relaxed text-gray">
@@ -199,11 +199,11 @@ export default function AboutPage() {
         <section className="py-28 px-12 bg-[#FAFAFA] text-center animate-on-scroll">
           <div className="max-w-[750px] mx-auto">
             <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-8 text-black">
-              Let's Connect
+              Let&apos;s Connect
             </h2>
             <p className="text-lg leading-relaxed text-gray mb-14">
               Ready to start your next piece? Have questions about the process?
-              I'd love to hear from you.
+              I&apos;d love to hear from you.
             </p>
 
             <div className="flex flex-col md:flex-row justify-center gap-10 md:gap-16 mb-14">

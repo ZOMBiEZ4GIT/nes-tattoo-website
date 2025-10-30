@@ -185,7 +185,7 @@ export default function BookingPage() {
           {currentStep === 2 && bookingPath === "custom" && (
             <form onSubmit={handleSubmit} className="animate-fadeIn">
               <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
-                What's your style preference?
+                What&apos;s your style preference?
               </h2>
               <p className="text-base text-gray mb-12 text-center">
                 Select the style that best matches your vision
@@ -255,7 +255,7 @@ export default function BookingPage() {
                 Upload a photo of your current tattoo
               </h2>
               <p className="text-base text-gray mb-12 text-center">
-                This helps me understand what we're working with
+                This helps me understand what we&apos;re working with
               </p>
 
               <div className="mb-12">
@@ -462,7 +462,7 @@ export default function BookingPage() {
                 When works for you?
               </h2>
               <p className="text-base text-gray mb-12 text-center">
-                Give me 2-3 date options and I'll get back to you
+                Give me 2-3 date options and I&apos;ll get back to you
               </p>
 
               <div className="space-y-6 mb-12">
@@ -715,7 +715,7 @@ export default function BookingPage() {
 
               <div className="mb-8 p-6 border border-gray-light bg-white">
                 <p className="text-sm text-gray">
-                  Once you submit, I'll review your request and get back to you within 24-48 hours
+                  Once you submit, I&apos;ll review your request and get back to you within 24-48 hours
                   to confirm availability and discuss deposit details.
                 </p>
               </div>
@@ -764,7 +764,7 @@ export default function BookingPage() {
                   Request Received!
                 </h2>
                 <p className="text-lg text-gray mb-12 max-w-md mx-auto">
-                  Thanks for your booking request. I'll review your information
+                  Thanks for your booking request. I&apos;ll review your information
                   and get back to you within 24 hours.
                 </p>
               </div>
