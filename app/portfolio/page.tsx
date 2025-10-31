@@ -131,14 +131,13 @@ export default function PortfolioPage() {
 
         {/* Portfolio Grid */}
         <section className="px-12 pb-40 bg-white">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-[1400px] mx-auto">
-            {filteredItems.map((item, index) => {
-              const src = portfolioImages[index % portfolioImages.length];
-              // Vary speeds between 0.4 and 0.6 for depth
-              const speed = 0.4 + (index % 3) * 0.1;
-              return (
-                <Parallax key={item.id} speed={speed} direction="up">
+          <Parallax speed={0.5} direction="up">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-[1400px] mx-auto">
+              {filteredItems.map((item, index) => {
+                const src = portfolioImages[index % portfolioImages.length];
+                return (
                   <div
+                    key={item.id}
                     className={`relative overflow-hidden bg-white border border-gray-light cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
                       index === 0 || index === 3
                         ? "md:row-span-2 aspect-[1/2]"
@@ -168,10 +167,10 @@ export default function PortfolioPage() {
                       </div>
                     </div>
                   </div>
-                </Parallax>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </Parallax>
         </section>
       </main>
 

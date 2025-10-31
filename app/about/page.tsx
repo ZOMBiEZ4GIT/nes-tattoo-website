@@ -117,26 +117,23 @@ export default function AboutPage() {
               </div>
             </Parallax>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-16">
-              {specialties.map((specialty, index) => {
-                const speed = 0.45 + index * 0.05;
-                return (
-                  <Parallax key={specialty.number} speed={speed} direction="up">
-                    <div className="text-center">
-                      <span className="font-serif text-[3.25rem] font-light text-gray-light mb-6 block">
-                        {specialty.number}
-                      </span>
-                      <h3 className="text-xl font-semibold tracking-wider uppercase mb-5 text-white">
-                        {specialty.title}
-                      </h3>
-                      <p className="text-base leading-relaxed text-gray-light">
-                        {specialty.description}
-                      </p>
-                    </div>
-                  </Parallax>
-                );
-              })}
-            </div>
+            <Parallax speed={0.5} direction="up">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-16">
+                {specialties.map((specialty) => (
+                  <div key={specialty.number} className="text-center">
+                    <span className="font-serif text-[3.25rem] font-light text-gray-light mb-6 block">
+                      {specialty.number}
+                    </span>
+                    <h3 className="text-xl font-semibold tracking-wider uppercase mb-5 text-white">
+                      {specialty.title}
+                    </h3>
+                    <p className="text-base leading-relaxed text-gray-light">
+                      {specialty.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Parallax>
           </div>
         </section>
 
@@ -151,51 +148,51 @@ export default function AboutPage() {
               </div>
             </Parallax>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-16">
-              {studios.map((studio, index) => {
-                const speed = index === 0 ? 0.45 : 0.55;
-                return (
-                  <Parallax key={index} speed={speed} direction="up">
-                    <div className="border border-gray-light p-12 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg">
-                      <h3 className="font-serif text-[1.875rem] font-normal mb-9 text-black">
-                        {studio.name}
-                      </h3>
-                      <div className="flex flex-col gap-6">
-                        <div className="flex items-start gap-6">
-                          <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
-                            Address
-                          </span>
-                          <span className="text-[1.0625rem] leading-relaxed text-black whitespace-pre-line">
-                            {studio.address}
-                          </span>
-                        </div>
-                        <div className="flex items-start gap-6">
-                          <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
-                            Hours
-                          </span>
-                          <span className="text-[1.0625rem] leading-relaxed text-black whitespace-pre-line">
-                            {studio.hours}
-                          </span>
-                        </div>
-                        <div className="flex items-start gap-6">
-                          <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
-                            Contact
-                          </span>
-                          <span className="text-[1.0625rem] leading-relaxed text-black">
-                            <a
-                              href={`tel:${studio.phone}`}
-                              className="border-b border-transparent hover:border-black transition-colors duration-200"
-                            >
-                              {studio.phone}
-                            </a>
-                          </span>
-                        </div>
+            <Parallax speed={0.5} direction="up">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-16">
+                {studios.map((studio, index) => (
+                  <div
+                    key={index}
+                    className="border border-gray-light p-12 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg"
+                  >
+                    <h3 className="font-serif text-[1.875rem] font-normal mb-9 text-black">
+                      {studio.name}
+                    </h3>
+                    <div className="flex flex-col gap-6">
+                      <div className="flex items-start gap-6">
+                        <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
+                          Address
+                        </span>
+                        <span className="text-[1.0625rem] leading-relaxed text-black whitespace-pre-line">
+                          {studio.address}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-6">
+                        <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
+                          Hours
+                        </span>
+                        <span className="text-[1.0625rem] leading-relaxed text-black whitespace-pre-line">
+                          {studio.hours}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-6">
+                        <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
+                          Contact
+                        </span>
+                        <span className="text-[1.0625rem] leading-relaxed text-black">
+                          <a
+                            href={`tel:${studio.phone}`}
+                            className="border-b border-transparent hover:border-black transition-colors duration-200"
+                          >
+                            {studio.phone}
+                          </a>
+                        </span>
                       </div>
                     </div>
-                  </Parallax>
-                );
-              })}
-            </div>
+                  </div>
+                ))}
+              </div>
+            </Parallax>
           </div>
         </section>
 

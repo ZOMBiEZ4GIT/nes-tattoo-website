@@ -168,14 +168,13 @@ export default function HomePage() {
             </Parallax>
 
             {/* Asymmetric Portfolio Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 auto-rows-[250px]">
-              {portfolioItems.map((item, index) => {
-                const src = homeImages[index % homeImages.length];
-                // Vary speeds between 0.4 and 0.6 for depth
-                const speed = 0.4 + (index % 3) * 0.1;
-                return (
-                  <Parallax key={index} speed={speed} direction="up">
+            <Parallax speed={0.5} direction="up">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 auto-rows-[250px]">
+                {portfolioItems.map((item, index) => {
+                  const src = homeImages[index % homeImages.length];
+                  return (
                     <div
+                      key={index}
                       className={`bg-white border border-gray-light rounded overflow-hidden cursor-pointer group relative ${
                         index === 0 || index === 3 ? "md:row-span-2" : ""
                       }`}
@@ -197,9 +196,10 @@ export default function HomePage() {
                         </h3>
                       </div>
                     </div>
-                  </Parallax>
-                );
-              })}
+                  );
+                })}
+              </div>
+            </Parallax>
             </div>
 
             <div className="text-center pt-16">
@@ -225,35 +225,32 @@ export default function HomePage() {
               </div>
             </Parallax>
 
-            <div className="flex flex-col gap-[4.5rem]">
-              {services.map((service, index) => {
-                // Stagger parallax speeds
-                const speed = 0.45 + index * 0.05;
-                return (
-                  <Parallax key={index} speed={speed} direction="up">
-                    <div
-                      className={`pb-16 group ${
-                        index < services.length - 1
-                          ? "border-b border-gray-light"
-                          : ""
-                      }`}
-                    >
-                      <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 mb-6">
-                        <span className="font-serif text-xl text-gray font-light min-w-[40px]">
-                          {service.number}
-                        </span>
-                        <h3 className="font-serif text-4xl md:text-[2.25rem] font-normal text-black tracking-[-0.01em] transition-all duration-300 group-hover:tracking-[0.02em]">
-                          {service.title}
-                        </h3>
-                      </div>
-                      <p className="text-[1.0625rem] text-gray leading-[1.8] max-w-[700px] md:ml-[calc(40px+2rem)]">
-                        {service.description}
-                      </p>
+            <Parallax speed={0.5} direction="up">
+              <div className="flex flex-col gap-[4.5rem]">
+                {services.map((service, index) => (
+                  <div
+                    key={index}
+                    className={`pb-16 group ${
+                      index < services.length - 1
+                        ? "border-b border-gray-light"
+                        : ""
+                    }`}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 mb-6">
+                      <span className="font-serif text-xl text-gray font-light min-w-[40px]">
+                        {service.number}
+                      </span>
+                      <h3 className="font-serif text-4xl md:text-[2.25rem] font-normal text-black tracking-[-0.01em] transition-all duration-300 group-hover:tracking-[0.02em]">
+                        {service.title}
+                      </h3>
                     </div>
-                  </Parallax>
-                );
-              })}
-            </div>
+                    <p className="text-[1.0625rem] text-gray leading-[1.8] max-w-[700px] md:ml-[calc(40px+2rem)]">
+                      {service.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Parallax>
           </div>
         </section>
 
@@ -271,29 +268,28 @@ export default function HomePage() {
               </div>
             </Parallax>
 
-            <div className="max-w-[800px] mx-auto" ref={processStepsRef}>
-              {processSteps.map((step, index) => {
-                // Vary speeds for each step
-                const speed = 0.4 + index * 0.05;
-                return (
-                  <Parallax key={index} speed={speed} direction="up">
-                    <div className="process-step flex flex-col md:flex-row gap-8 md:gap-16 mb-24 opacity-0 translate-y-5 transition-all duration-600">
-                      <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full border-2 border-black flex items-center justify-center font-serif text-2xl font-semibold text-black">
-                        {step.number}
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold mb-2 text-black">
-                          {step.title}
-                        </h3>
-                        <p className="text-base text-gray leading-relaxed">
-                          {step.description}
-                        </p>
-                      </div>
+            <Parallax speed={0.5} direction="up">
+              <div className="max-w-[800px] mx-auto" ref={processStepsRef}>
+                {processSteps.map((step, index) => (
+                  <div
+                    key={index}
+                    className="process-step flex flex-col md:flex-row gap-8 md:gap-16 mb-24 opacity-0 translate-y-5 transition-all duration-600"
+                  >
+                    <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full border-2 border-black flex items-center justify-center font-serif text-2xl font-semibold text-black">
+                      {step.number}
                     </div>
-                  </Parallax>
-                );
-              })}
-            </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold mb-2 text-black">
+                        {step.title}
+                      </h3>
+                      <p className="text-base text-gray leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Parallax>
           </div>
         </section>
 
