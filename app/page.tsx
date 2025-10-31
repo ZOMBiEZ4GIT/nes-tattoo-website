@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Parallax from "@/components/Parallax";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function HomePage() {
   const processStepsRef = useRef<HTMLDivElement>(null);
@@ -156,7 +157,7 @@ export default function HomePage() {
         {/* Featured Work Section */}
         <section className="py-28 px-8 bg-white" id="featured-work">
           <div className="max-w-[1280px] mx-auto">
-            <Parallax speed={0.5} direction="up">
+            <ScrollReveal>
               <div className="text-center mb-16">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-4 text-black">
                   Featured Work
@@ -165,10 +166,10 @@ export default function HomePage() {
                   A selection of recent custom pieces and cover-ups
                 </p>
               </div>
-            </Parallax>
+            </ScrollReveal>
 
             {/* Asymmetric Portfolio Grid */}
-            <Parallax speed={0.5} direction="up">
+            <ScrollReveal delay={0.2} duration={1.0}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 auto-rows-[250px]">
                 {portfolioItems.map((item, index) => {
                   const src = homeImages[index % homeImages.length];
@@ -199,7 +200,7 @@ export default function HomePage() {
                   );
                 })}
               </div>
-            </Parallax>
+            </ScrollReveal>
 
             <div className="text-center pt-16">
               <Link
@@ -215,20 +216,19 @@ export default function HomePage() {
         {/* Services Section */}
         <section className="py-20 px-8 bg-white" id="services">
           <div className="max-w-[900px] mx-auto">
-            <Parallax speed={0.5} direction="up">
+            <ScrollReveal>
               <div className="text-center mb-16">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-4 text-black">
                   Services
                 </h2>
                 <p className="text-lg text-gray">What I offer</p>
               </div>
-            </Parallax>
+            </ScrollReveal>
 
-            <Parallax speed={0.5} direction="up">
-              <div className="flex flex-col gap-[4.5rem]">
-                {services.map((service, index) => (
+            <div className="flex flex-col gap-[4.5rem]">
+              {services.map((service, index) => (
+                <ScrollReveal key={index} delay={index * 0.15}>
                   <div
-                    key={index}
                     className={`pb-16 group ${
                       index < services.length - 1
                         ? "border-b border-gray-light"
@@ -247,16 +247,16 @@ export default function HomePage() {
                       {service.description}
                     </p>
                   </div>
-                ))}
-              </div>
-            </Parallax>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Process Section */}
         <section className="py-28 px-8 bg-white" id="process">
           <div className="max-w-[1280px] mx-auto">
-            <Parallax speed={0.5} direction="up">
+            <ScrollReveal>
               <div className="text-center mb-16">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-4 text-black">
                   How It Works
@@ -265,15 +265,12 @@ export default function HomePage() {
                   A simple process from consultation to finished art
                 </p>
               </div>
-            </Parallax>
+            </ScrollReveal>
 
-            <Parallax speed={0.5} direction="up">
-              <div className="max-w-[800px] mx-auto" ref={processStepsRef}>
-                {processSteps.map((step, index) => (
-                  <div
-                    key={index}
-                    className="process-step flex flex-col md:flex-row gap-8 md:gap-16 mb-24 opacity-0 translate-y-5 transition-all duration-600"
-                  >
+            <div className="max-w-[800px] mx-auto" ref={processStepsRef}>
+              {processSteps.map((step, index) => (
+                <ScrollReveal key={index} delay={index * 0.15} distance={50}>
+                  <div className="flex flex-col md:flex-row gap-8 md:gap-16 mb-24">
                     <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full border-2 border-black flex items-center justify-center font-serif text-2xl font-semibold text-black">
                       {step.number}
                     </div>
@@ -286,16 +283,16 @@ export default function HomePage() {
                       </p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </Parallax>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Final CTA Section */}
         <section className="py-28 px-8 bg-black text-white text-center">
           <div className="max-w-[1280px] mx-auto">
-            <Parallax speed={0.5} direction="up">
+            <ScrollReveal duration={0.8}>
               <h2 className="font-serif text-[clamp(2.5rem,5vw,4rem)] font-normal mb-8">
                 Ready to Start Your Tattoo Journey?
               </h2>
@@ -317,7 +314,7 @@ export default function HomePage() {
                   Learn More
                 </Link>
               </div>
-            </Parallax>
+            </ScrollReveal>
           </div>
         </section>
       </main>

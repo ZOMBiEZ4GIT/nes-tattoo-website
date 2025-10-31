@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import Parallax from "@/components/Parallax";
+import ScrollReveal from "@/components/ScrollReveal";
 
 type FilterCategory = "all" | "custom" | "cover-up" | "minimal";
 
@@ -94,7 +94,7 @@ export default function PortfolioPage() {
       <main className="pt-20">
         {/* Portfolio Hero */}
         <section className="pt-48 pb-32 px-12 text-center bg-white">
-          <Parallax speed={0.5} direction="up">
+          <ScrollReveal>
             <h1 className="font-serif text-[clamp(3.5rem,7vw,5rem)] font-light tracking-[-0.01em] mb-10 text-black">
               Portfolio
             </h1>
@@ -102,10 +102,10 @@ export default function PortfolioPage() {
               A collection of custom tattoo work and transformative cover-ups,
               showcasing clean lines and timeless design.
             </p>
-          </Parallax>
+          </ScrollReveal>
 
           {/* Filter Navigation */}
-          <Parallax speed={0.45} direction="up">
+          <ScrollReveal delay={0.2}>
             <div className="flex justify-center gap-4 flex-wrap">
               {[
                 { label: "All Work", value: "all" as FilterCategory },
@@ -126,12 +126,12 @@ export default function PortfolioPage() {
                 </button>
               ))}
             </div>
-          </Parallax>
+          </ScrollReveal>
         </section>
 
         {/* Portfolio Grid */}
         <section className="px-12 pb-40 bg-white">
-          <Parallax speed={0.5} direction="up">
+          <ScrollReveal delay={0.2} duration={1.0}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-[1400px] mx-auto">
               {filteredItems.map((item, index) => {
                 const src = portfolioImages[index % portfolioImages.length];
@@ -170,7 +170,7 @@ export default function PortfolioPage() {
                 );
               })}
             </div>
-          </Parallax>
+          </ScrollReveal>
         </section>
       </main>
 
