@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Parallax from "@/components/Parallax";
 
 type FilterCategory = "all" | "custom" | "cover-up" | "minimal";
 
@@ -93,35 +94,39 @@ export default function PortfolioPage() {
       <main className="pt-20">
         {/* Portfolio Hero */}
         <section className="pt-48 pb-32 px-12 text-center bg-white">
-          <h1 className="font-serif text-[clamp(3.5rem,7vw,5rem)] font-light tracking-[-0.01em] mb-10 text-black">
-            Portfolio
-          </h1>
-          <p className="text-xl leading-relaxed text-gray max-w-[700px] mx-auto mb-20">
-            A collection of custom tattoo work and transformative cover-ups,
-            showcasing clean lines and timeless design.
-          </p>
+          <Parallax speed={0.5} direction="up">
+            <h1 className="font-serif text-[clamp(3.5rem,7vw,5rem)] font-light tracking-[-0.01em] mb-10 text-black">
+              Portfolio
+            </h1>
+            <p className="text-xl leading-relaxed text-gray max-w-[700px] mx-auto mb-20">
+              A collection of custom tattoo work and transformative cover-ups,
+              showcasing clean lines and timeless design.
+            </p>
+          </Parallax>
 
           {/* Filter Navigation */}
-          <div className="flex justify-center gap-4 flex-wrap">
-            {[
-              { label: "All Work", value: "all" as FilterCategory },
-              { label: "Custom", value: "custom" as FilterCategory },
-              { label: "Cover-Ups", value: "cover-up" as FilterCategory },
-              { label: "Minimal", value: "minimal" as FilterCategory },
-            ].map((filter) => (
-              <button
-                key={filter.value}
-                onClick={() => setActiveFilter(filter.value)}
-                className={`text-sm font-medium tracking-wider uppercase px-8 py-4 border transition-all duration-200 active:scale-[0.98] ${
-                  activeFilter === filter.value
-                    ? "bg-black text-white border-black"
-                    : "bg-transparent text-gray border-gray-light hover:border-black hover:text-black"
-                }`}
-              >
-                {filter.label}
-              </button>
-            ))}
-          </div>
+          <Parallax speed={0.45} direction="up">
+            <div className="flex justify-center gap-4 flex-wrap">
+              {[
+                { label: "All Work", value: "all" as FilterCategory },
+                { label: "Custom", value: "custom" as FilterCategory },
+                { label: "Cover-Ups", value: "cover-up" as FilterCategory },
+                { label: "Minimal", value: "minimal" as FilterCategory },
+              ].map((filter) => (
+                <button
+                  key={filter.value}
+                  onClick={() => setActiveFilter(filter.value)}
+                  className={`text-sm font-medium tracking-wider uppercase px-8 py-4 border transition-all duration-200 active:scale-[0.98] ${
+                    activeFilter === filter.value
+                      ? "bg-black text-white border-black"
+                      : "bg-transparent text-gray border-gray-light hover:border-black hover:text-black"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+          </Parallax>
         </section>
 
         {/* Portfolio Grid */}
@@ -129,38 +134,41 @@ export default function PortfolioPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-[1400px] mx-auto">
             {filteredItems.map((item, index) => {
               const src = portfolioImages[index % portfolioImages.length];
+              // Vary speeds between 0.4 and 0.6 for depth
+              const speed = 0.4 + (index % 3) * 0.1;
               return (
-                <div
-                  key={item.id}
-                  className={`relative overflow-hidden bg-white border border-gray-light cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
-                    index === 0 || index === 3
-                      ? "md:row-span-2 aspect-[1/2]"
-                      : "aspect-square"
-                  }`}
-                >
-                  <img
-                    src={src}
-                    alt={item.title}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
-                  />
+                <Parallax key={item.id} speed={speed} direction="up">
+                  <div
+                    className={`relative overflow-hidden bg-white border border-gray-light cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                      index === 0 || index === 3
+                        ? "md:row-span-2 aspect-[1/2]"
+                        : "aspect-square"
+                    }`}
+                  >
+                    <img
+                      src={src}
+                      alt={item.title}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
+                    />
 
-                  {/* Info Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-12 bg-gradient-to-t from-black/95 to-transparent text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 className="font-serif text-2xl font-normal mb-4">
-                      {item.title}
-                    </h3>
-                    <div className="flex gap-3 flex-wrap">
-                      {item.tags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className="text-xs px-4 py-1.5 border border-white/30 text-white/90 tracking-wider uppercase"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                    {/* Info Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-12 bg-gradient-to-t from-black/95 to-transparent text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <h3 className="font-serif text-2xl font-normal mb-4">
+                        {item.title}
+                      </h3>
+                      <div className="flex gap-3 flex-wrap">
+                        {item.tags.map((tag, i) => (
+                          <span
+                            key={i}
+                            className="text-xs px-4 py-1.5 border border-white/30 text-white/90 tracking-wider uppercase"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Parallax>
               );
             })}
           </div>

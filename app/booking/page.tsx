@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Parallax from "@/components/Parallax";
 
 type BookingPath = "custom" | "coverup" | null;
 
@@ -137,59 +138,62 @@ export default function BookingPage() {
         <div className="max-w-[600px] mx-auto px-8" style={{ paddingTop: bookingPath ? "120px" : "80px" }}>
           {/* Step 1: Choose Path */}
           {currentStep === 1 && (
-            <div className="text-center animate-fadeIn">
-              <h1 className="font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-light mb-6 text-black">
-                Book Your Session
-              </h1>
-              <p className="text-lg text-gray mb-16 leading-relaxed">
-                What type of work are you interested in?
-              </p>
+            <Parallax speed={0.5} direction="up">
+              <div className="text-center animate-fadeIn">
+                <h1 className="font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-light mb-6 text-black">
+                  Book Your Session
+                </h1>
+                <p className="text-lg text-gray mb-16 leading-relaxed">
+                  What type of work are you interested in?
+                </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <button
-                  onClick={() => {
-                    setBookingPath("custom");
-                    setFormData({ ...formData, bookingType: "custom" });
-                    nextStep();
-                  }}
-                  className="p-12 border-2 border-gray-light hover:border-black transition-all duration-200 text-left group"
-                >
-                  <h3 className="font-serif text-2xl font-normal mb-4 text-black">
-                    Custom Work
-                  </h3>
-                  <p className="text-base text-gray leading-relaxed">
-                    Original design created specifically for you
-                  </p>
-                </button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                  <button
+                    onClick={() => {
+                      setBookingPath("custom");
+                      setFormData({ ...formData, bookingType: "custom" });
+                      nextStep();
+                    }}
+                    className="p-12 border-2 border-gray-light hover:border-black transition-all duration-200 text-left group"
+                  >
+                    <h3 className="font-serif text-2xl font-normal mb-4 text-black">
+                      Custom Work
+                    </h3>
+                    <p className="text-base text-gray leading-relaxed">
+                      Original design created specifically for you
+                    </p>
+                  </button>
 
-                <button
-                  onClick={() => {
-                    setBookingPath("coverup");
-                    setFormData({ ...formData, bookingType: "coverup" });
-                    nextStep();
-                  }}
-                  className="p-12 border-2 border-gray-light hover:border-black transition-all duration-200 text-left group"
-                >
-                  <h3 className="font-serif text-2xl font-normal mb-4 text-black">
-                    Cover-Up
-                  </h3>
-                  <p className="text-base text-gray leading-relaxed">
-                    Transform an existing tattoo
-                  </p>
-                </button>
+                  <button
+                    onClick={() => {
+                      setBookingPath("coverup");
+                      setFormData({ ...formData, bookingType: "coverup" });
+                      nextStep();
+                    }}
+                    className="p-12 border-2 border-gray-light hover:border-black transition-all duration-200 text-left group"
+                  >
+                    <h3 className="font-serif text-2xl font-normal mb-4 text-black">
+                      Cover-Up
+                    </h3>
+                    <p className="text-base text-gray leading-relaxed">
+                      Transform an existing tattoo
+                    </p>
+                  </button>
+                </div>
               </div>
-            </div>
+            </Parallax>
           )}
 
           {/* Step 2: Style Preference (Custom) */}
           {currentStep === 2 && bookingPath === "custom" && (
-            <form onSubmit={handleSubmit} className="animate-fadeIn">
-              <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
-                What&apos;s your style preference?
-              </h2>
-              <p className="text-base text-gray mb-12 text-center">
-                Select the style that best matches your vision
-              </p>
+            <Parallax speed={0.5} direction="up">
+              <form onSubmit={handleSubmit} className="animate-fadeIn">
+                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
+                  What&apos;s your style preference?
+                </h2>
+                <p className="text-base text-gray mb-12 text-center">
+                  Select the style that best matches your vision
+                </p>
 
               <div className="space-y-4 mb-12">
                 {["Minimalist", "Geometric", "Traditional", "Blackwork", "Other"].map((style) => (
@@ -245,7 +249,8 @@ export default function BookingPage() {
                   Next
                 </button>
               </div>
-            </form>
+              </form>
+            </Parallax>
           )}
 
           {/* Step 2: Photo Upload (Cover-Up) */}
