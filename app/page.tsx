@@ -200,7 +200,6 @@ export default function HomePage() {
                 })}
               </div>
             </Parallax>
-            </div>
 
             <div className="text-center pt-16">
               <Link
