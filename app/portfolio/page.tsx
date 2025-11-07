@@ -99,8 +99,8 @@ export default function PortfolioPage() {
               Portfolio
             </h1>
             <p className="text-xl leading-relaxed text-gray max-w-[700px] mx-auto mb-20">
-              A collection of custom tattoo work and transformative cover-ups,
-              showcasing clean lines and timeless design.
+              A collection of custom tattoo work showcasing clean lines,
+              natural elements, and timeless design.
             </p>
           </ScrollReveal>
 

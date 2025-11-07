@@ -6,77 +6,45 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Parallax from "@/components/Parallax";
 
-type BookingPath = "custom" | "coverup" | null;
-
 interface BookingData {
-  bookingType: BookingPath;
-  style?: string;
-  designDescription?: string;
-  coverupPhoto?: string;
-  coverupStyle?: string;
-  coverupDescription?: string;
   size?: string;
-  placement?: string;
+  location?: string;
+  locationOther?: string;
   dates: string[];
+  times: string[];
+  flexibleTiming: boolean;
   name?: string;
   email?: string;
   phone?: string;
+  notes?: string;
 }
 
 export default function BookingPage() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [bookingPath, setBookingPath] = useState<BookingPath>(null);
   const [formData, setFormData] = useState<BookingData>({
-    bookingType: null,
     dates: [],
+    times: [],
+    flexibleTiming: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [uploadedPhotoUrl, setUploadedPhotoUrl] = useState<string | null>(null);
 
-  const totalSteps = bookingPath === "coverup" ? 7 : 6;
+  const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
 
   const nextStep = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
+    setCurrentStep((prev) => Math.min(prev + 1, totalSteps + 1));
   };
 
   const prevStep = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const uploadFormData = new FormData();
-    uploadFormData.append("file", file);
-
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: uploadFormData,
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setUploadedPhotoUrl(data.url);
-        setFormData({ ...formData, coverupPhoto: data.url });
-      } else {
-        alert("Failed to upload photo: " + data.message);
-      }
-    } catch (error) {
-      console.error("Upload error:", error);
-      alert("Failed to upload photo. Please try again.");
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // If this is the final step, submit to API
-    if (currentStep === totalSteps - 1) {
+    // If this is the review step, submit to API
+    if (currentStep === totalSteps) {
       setIsSubmitting(true);
       setSubmitError(null);
 
@@ -107,13 +75,22 @@ export default function BookingPage() {
     }
   };
 
+  const handleTimeToggle = (time: string) => {
+    setFormData(prev => {
+      const newTimes = prev.times.includes(time)
+        ? prev.times.filter(t => t !== time)
+        : [...prev.times, time];
+      return { ...prev, times: newTimes };
+    });
+  };
+
   return (
     <>
       <Navigation />
 
       <main className="min-h-screen pt-20 pb-12 bg-white">
         {/* Progress Indicator */}
-        {bookingPath && (
+        {currentStep <= totalSteps && (
           <div className="fixed top-20 left-0 right-0 z-40 bg-white border-b border-gray-light">
             <div className="max-w-[600px] mx-auto px-8 py-4">
               <div className="flex items-center justify-between mb-2">
@@ -135,486 +112,330 @@ export default function BookingPage() {
         )}
 
         {/* Form Container */}
-        <div className="max-w-[600px] mx-auto px-8" style={{ paddingTop: bookingPath ? "120px" : "80px" }}>
-          {/* Step 1: Choose Path */}
+        <div className="max-w-[600px] mx-auto px-8" style={{ paddingTop: currentStep <= totalSteps ? "120px" : "80px" }}>
+
+          {/* Step 1: Size */}
           {currentStep === 1 && (
             <Parallax speed={0.5} direction="up">
-              <div className="text-center animate-fadeIn">
-                <h1 className="font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-light mb-6 text-black">
-                  Book Your Session
-                </h1>
-                <p className="text-lg text-gray mb-16 leading-relaxed">
-                  What type of work are you interested in?
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                  <button
-                    onClick={() => {
-                      setBookingPath("custom");
-                      setFormData({ ...formData, bookingType: "custom" });
-                      nextStep();
-                    }}
-                    className="p-12 border-2 border-gray-light hover:border-black transition-all duration-200 text-left group"
-                  >
-                    <h3 className="font-serif text-2xl font-normal mb-4 text-black">
-                      Custom Work
-                    </h3>
-                    <p className="text-base text-gray leading-relaxed">
-                      Original design created specifically for you
-                    </p>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setBookingPath("coverup");
-                      setFormData({ ...formData, bookingType: "coverup" });
-                      nextStep();
-                    }}
-                    className="p-12 border-2 border-gray-light hover:border-black transition-all duration-200 text-left group"
-                  >
-                    <h3 className="font-serif text-2xl font-normal mb-4 text-black">
-                      Cover-Up
-                    </h3>
-                    <p className="text-base text-gray leading-relaxed">
-                      Transform an existing tattoo
-                    </p>
-                  </button>
-                </div>
-              </div>
-            </Parallax>
-          )}
-
-          {/* Step 2: Style Preference (Custom) */}
-          {currentStep === 2 && bookingPath === "custom" && (
-            <Parallax speed={0.5} direction="up">
               <form onSubmit={handleSubmit} className="animate-fadeIn">
-                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
-                  What&apos;s your style preference?
-                </h2>
-                <p className="text-base text-gray mb-12 text-center">
-                  Select the style that best matches your vision
+                <h1 className="font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-light mb-6 text-black text-center">
+                  Book Your Tattoo
+                </h1>
+                <p className="text-lg text-gray mb-16 leading-relaxed text-center">
+                  How big are you thinking?
                 </p>
 
-              <div className="space-y-4 mb-12">
-                {["Minimalist", "Geometric", "Traditional", "Blackwork", "Other"].map((style) => (
-                  <label
-                    key={style}
-                    className="flex items-center p-6 border border-gray-light hover:border-black cursor-pointer transition-colors duration-200"
-                  >
-                    <input
-                      type="radio"
-                      name="style"
-                      value={style}
-                      onChange={(e) =>
-                        setFormData({ ...formData, style: e.target.value })
-                      }
-                      className="mr-4 w-5 h-5"
-                      required
-                    />
-                    <span className="text-lg text-black">{style}</span>
-                  </label>
-                ))}
-              </div>
+                <div className="space-y-4 mb-12">
+                  {[
+                    { value: "Small (under 10cm)", label: "Small", desc: "Under 10cm" },
+                    { value: "Medium (10-20cm)", label: "Medium", desc: "10-20cm" },
+                    { value: "Large (20cm+)", label: "Large", desc: "20cm+" },
+                    { value: "I'm not sure", label: "I'm not sure", desc: "We can discuss this together" },
+                  ].map((size) => (
+                    <label
+                      key={size.value}
+                      className="flex items-center p-6 border border-gray-light hover:border-black cursor-pointer transition-colors duration-200"
+                    >
+                      <input
+                        type="radio"
+                        name="size"
+                        value={size.value}
+                        onChange={(e) =>
+                          setFormData({ ...formData, size: e.target.value })
+                        }
+                        className="mr-4 w-5 h-5"
+                        required
+                      />
+                      <div>
+                        <div className="text-lg text-black font-medium">{size.label}</div>
+                        <div className="text-sm text-gray">{size.desc}</div>
+                      </div>
+                    </label>
+                  ))}
+                </div>
 
-              <div className="mb-12">
-                <label className="block text-sm font-medium text-black mb-3">
-                  Describe your design idea
-                </label>
-                <textarea
-                  rows={6}
-                  className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black resize-none"
-                  placeholder="Tell me about your vision..."
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      designDescription: e.target.value,
-                    })
-                  }
-                  required
-                />
-              </div>
-
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
-                >
-                  Back
-                </button>
                 <button
                   type="submit"
-                  className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
+                  className="w-full px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
                 >
                   Next
                 </button>
-              </div>
               </form>
             </Parallax>
           )}
 
-          {/* Step 2: Photo Upload (Cover-Up) */}
-          {currentStep === 2 && bookingPath === "coverup" && (
-            <form onSubmit={handleSubmit} className="animate-fadeIn">
-              <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
-                Upload a photo of your current tattoo
-              </h2>
-              <p className="text-base text-gray mb-12 text-center">
-                This helps me understand what we&apos;re working with
-              </p>
+          {/* Step 2: Location */}
+          {currentStep === 2 && (
+            <Parallax speed={0.5} direction="up">
+              <form onSubmit={handleSubmit} className="animate-fadeIn">
+                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
+                  Where on your body?
+                </h2>
+                <p className="text-base text-gray mb-12 text-center">
+                  Select the general area
+                </p>
 
-              <div className="mb-12">
-                <div className="border-2 border-dashed border-gray-light p-16 text-center hover:border-black transition-colors duration-200">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    id="photo-upload"
-                    onChange={handleFileUpload}
-                  />
-                  <label
-                    htmlFor="photo-upload"
-                    className="cursor-pointer block"
-                  >
-                    {uploadedPhotoUrl ? (
-                      <div>
-                        <img
-                          src={uploadedPhotoUrl}
-                          alt="Uploaded cover-up photo"
-                          className="max-w-full max-h-64 mx-auto mb-4 object-contain"
-                        />
-                        <p className="text-sm text-gray">
-                          Photo uploaded successfully. Click to change.
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="text-gray mb-4">
-                        <svg
-                          className="w-12 h-12 mx-auto mb-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                          />
-                        </svg>
-                        <p className="text-lg text-black mb-2">
-                          Click to upload or drag and drop
-                        </p>
-                        <p className="text-sm text-gray">
-                          JPG or PNG (max 10MB)
-                        </p>
-                      </div>
-                    )}
-                  </label>
+                <div className="space-y-4 mb-12">
+                  {[
+                    "Arm",
+                    "Leg",
+                    "Chest",
+                    "Back",
+                    "Other",
+                    "I'm not sure",
+                  ].map((location) => (
+                    <label
+                      key={location}
+                      className="flex items-center p-6 border border-gray-light hover:border-black cursor-pointer transition-colors duration-200"
+                    >
+                      <input
+                        type="radio"
+                        name="location"
+                        value={location}
+                        onChange={(e) =>
+                          setFormData({ ...formData, location: e.target.value })
+                        }
+                        className="mr-4 w-5 h-5"
+                        required
+                      />
+                      <span className="text-lg text-black">{location}</span>
+                    </label>
+                  ))}
                 </div>
-              </div>
 
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
-                >
-                  Next
-                </button>
-              </div>
-            </form>
-          )}
-
-          {/* Step 3: Cover-Up Style (Cover-Up Path Only) */}
-          {currentStep === 3 && bookingPath === "coverup" && (
-            <form onSubmit={handleSubmit} className="animate-fadeIn">
-              <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
-                What style for the cover-up?
-              </h2>
-              <p className="text-base text-gray mb-12 text-center">
-                Choose the direction for your new design
-              </p>
-
-              <div className="space-y-4 mb-12">
-                {["Minimalist", "Geometric", "Traditional", "Blackwork", "Other"].map((style) => (
-                  <label
-                    key={style}
-                    className="flex items-center p-6 border border-gray-light hover:border-black cursor-pointer transition-colors duration-200"
-                  >
+                {formData.location === "Other" && (
+                  <div className="mb-12">
+                    <label className="block text-sm font-medium text-black mb-3">
+                      Please specify the location
+                    </label>
                     <input
-                      type="radio"
-                      name="coverupStyle"
-                      value={style}
+                      type="text"
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
+                      placeholder="e.g., shoulder, wrist, ankle..."
                       onChange={(e) =>
-                        setFormData({ ...formData, coverupStyle: e.target.value })
+                        setFormData({ ...formData, locationOther: e.target.value })
                       }
-                      className="mr-4 w-5 h-5"
                       required
                     />
-                    <span className="text-lg text-black">{style}</span>
-                  </label>
-                ))}
-              </div>
+                  </div>
+                )}
 
-              <div className="mb-12">
-                <label className="block text-sm font-medium text-black mb-3">
-                  Cover-up design ideas (optional)
-                </label>
-                <textarea
-                  rows={6}
-                  className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black resize-none"
-                  placeholder="Any specific ideas for the cover-up..."
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      coverupDescription: e.target.value,
-                    })
-                  }
-                />
-              </div>
-
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
-                >
-                  Next
-                </button>
-              </div>
-            </form>
+                <div className="flex gap-4">
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
+                  >
+                    Next
+                  </button>
+                </div>
+              </form>
+            </Parallax>
           )}
 
-          {/* Step 3/4: Size & Placement */}
-          {((currentStep === 3 && bookingPath === "custom") || (currentStep === 4 && bookingPath === "coverup")) && (
-            <form onSubmit={handleSubmit} className="animate-fadeIn">
-              <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
-                Size & Placement
-              </h2>
-              <p className="text-base text-gray mb-12 text-center">
-                Tell me about where and how big
-              </p>
+          {/* Step 3: Date & Time Preferences */}
+          {currentStep === 3 && (
+            <Parallax speed={0.5} direction="up">
+              <form onSubmit={handleSubmit} className="animate-fadeIn">
+                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
+                  When works for you?
+                </h2>
+                <p className="text-base text-gray mb-12 text-center">
+                  Select preferred dates and times
+                </p>
 
-              <div className="mb-8">
-                <label className="block text-sm font-medium text-black mb-3">
-                  Approximate Size
-                </label>
-                <select
-                  className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
-                  onChange={(e) =>
-                    setFormData({ ...formData, size: e.target.value })
-                  }
-                  required
-                >
-                  <option value="">Select a size...</option>
-                  <option value="Small (2-4 inches)">Small (2-4 inches)</option>
-                  <option value="Medium (4-8 inches)">Medium (4-8 inches)</option>
-                  <option value="Large (8-12 inches)">Large (8-12 inches)</option>
-                  <option value="Extra Large (12+ inches)">Extra Large (12+ inches)</option>
-                </select>
-              </div>
+                <div className="mb-8">
+                  <label className="block text-sm font-medium text-black mb-4">
+                    Preferred Dates (select 1-3 options)
+                  </label>
+                  <div className="space-y-4">
+                    <input
+                      type="date"
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
+                      min={new Date().toISOString().split('T')[0]}
+                      onChange={(e) => {
+                        const newDates = [...formData.dates];
+                        newDates[0] = e.target.value;
+                        setFormData({ ...formData, dates: newDates });
+                      }}
+                      required
+                    />
+                    <input
+                      type="date"
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
+                      min={new Date().toISOString().split('T')[0]}
+                      placeholder="Optional"
+                      onChange={(e) => {
+                        const newDates = [...formData.dates];
+                        newDates[1] = e.target.value;
+                        setFormData({ ...formData, dates: newDates });
+                      }}
+                    />
+                    <input
+                      type="date"
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
+                      min={new Date().toISOString().split('T')[0]}
+                      placeholder="Optional"
+                      onChange={(e) => {
+                        const newDates = [...formData.dates];
+                        newDates[2] = e.target.value;
+                        setFormData({ ...formData, dates: newDates });
+                      }}
+                    />
+                  </div>
+                </div>
 
-              <div className="mb-12">
-                <label className="block text-sm font-medium text-black mb-3">
-                  Body Placement
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
-                  placeholder="e.g., forearm, shoulder, calf..."
-                  onChange={(e) =>
-                    setFormData({ ...formData, placement: e.target.value })
-                  }
-                  required
-                />
-              </div>
+                <div className="mb-12">
+                  <label className="block text-sm font-medium text-black mb-4">
+                    Preferred Times (select all that work)
+                  </label>
+                  <div className="space-y-3">
+                    {["Morning (9am-12pm)", "Afternoon (12pm-5pm)", "Evening (5pm-8pm)"].map((time) => (
+                      <label
+                        key={time}
+                        className="flex items-center p-4 border border-gray-light hover:border-black cursor-pointer transition-colors duration-200"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={formData.times.includes(time)}
+                          onChange={() => handleTimeToggle(time)}
+                          className="mr-4 w-5 h-5"
+                        />
+                        <span className="text-base text-black">{time}</span>
+                      </label>
+                    ))}
+                  </div>
 
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
-                >
-                  Next
-                </button>
-              </div>
-            </form>
+                  <label className="flex items-center mt-4 p-4 border border-gray-light hover:border-black cursor-pointer transition-colors duration-200">
+                    <input
+                      type="checkbox"
+                      checked={formData.flexibleTiming}
+                      onChange={(e) =>
+                        setFormData({ ...formData, flexibleTiming: e.target.checked })
+                      }
+                      className="mr-4 w-5 h-5"
+                    />
+                    <span className="text-base text-black">I'm flexible with timing</span>
+                  </label>
+                </div>
+
+                <div className="flex gap-4">
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
+                  >
+                    Next
+                  </button>
+                </div>
+              </form>
+            </Parallax>
           )}
 
-          {/* Step 4/5: Preferred Dates */}
-          {((currentStep === 4 && bookingPath === "custom") || (currentStep === 5 && bookingPath === "coverup")) && (
-            <form onSubmit={handleSubmit} className="animate-fadeIn">
-              <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
-                When works for you?
-              </h2>
-              <p className="text-base text-gray mb-12 text-center">
-                Give me 2-3 date options and I&apos;ll get back to you
-              </p>
+          {/* Step 4: Contact Info */}
+          {currentStep === 4 && (
+            <Parallax speed={0.5} direction="up">
+              <form onSubmit={handleSubmit} className="animate-fadeIn">
+                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
+                  How can I reach you?
+                </h2>
+                <p className="text-base text-gray mb-12 text-center">
+                  Your contact information
+                </p>
 
-              <div className="space-y-6 mb-12">
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Option 1 (Required)
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
-                    min={new Date().toISOString().split('T')[0]}
-                    onChange={(e) => {
-                      const newDates = [...formData.dates];
-                      newDates[0] = e.target.value;
-                      setFormData({ ...formData, dates: newDates });
-                    }}
-                    required
-                  />
+                <div className="space-y-6 mb-12">
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-3">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
+                      placeholder="Your name"
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-3">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
+                      placeholder="your@email.com"
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-3">
+                      Phone (Optional)
+                    </label>
+                    <input
+                      type="tel"
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
+                      placeholder="0400 000 000"
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-3">
+                      Additional Notes (Optional)
+                    </label>
+                    <textarea
+                      rows={4}
+                      className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black resize-none"
+                      placeholder="Any additional information about your tattoo idea, reference images, or questions..."
+                      onChange={(e) =>
+                        setFormData({ ...formData, notes: e.target.value })
+                      }
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Option 2 (Optional)
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
-                    min={new Date().toISOString().split('T')[0]}
-                    onChange={(e) => {
-                      const newDates = [...formData.dates];
-                      newDates[1] = e.target.value;
-                      setFormData({ ...formData, dates: newDates });
-                    }}
-                  />
+                <div className="flex gap-4">
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
+                  >
+                    Next
+                  </button>
                 </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Option 3 (Optional)
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
-                    min={new Date().toISOString().split('T')[0]}
-                    onChange={(e) => {
-                      const newDates = [...formData.dates];
-                      newDates[2] = e.target.value;
-                      setFormData({ ...formData, dates: newDates });
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
-                >
-                  Next
-                </button>
-              </div>
-            </form>
+              </form>
+            </Parallax>
           )}
 
-          {/* Step 5/6: Contact Info */}
-          {((currentStep === 5 && bookingPath === "custom") || (currentStep === 6 && bookingPath === "coverup")) && (
-            <form onSubmit={handleSubmit} className="animate-fadeIn">
-              <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
-                How can I reach you?
-              </h2>
-              <p className="text-base text-gray mb-12 text-center">
-                Your contact information
-              </p>
-
-              <div className="space-y-6 mb-12">
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
-                    placeholder="Your name"
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
-                    placeholder="your@email.com"
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Phone (Optional)
-                  </label>
-                  <input
-                    type="tel"
-                    className="w-full px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-black"
-                    placeholder="(555) 123-4567"
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className="flex-1 px-8 py-4 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-8 py-4 bg-black text-white hover:opacity-90 transition-opacity duration-200"
-                >
-                  Next
-                </button>
-              </div>
-            </form>
-          )}
-
-          {/* Step 6/7: Review */}
-          {((currentStep === 6 && bookingPath === "custom") || (currentStep === 7 && bookingPath === "coverup")) && currentStep < totalSteps && (
+          {/* Step 5: Review */}
+          {currentStep === 5 && (
             <div className="animate-fadeIn">
               <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
                 Review your booking
@@ -626,37 +447,21 @@ export default function BookingPage() {
               <div className="mb-12 space-y-6">
                 <div className="border-t border-gray-light pt-6">
                   <h3 className="text-sm font-medium text-black mb-4 uppercase tracking-wider">
-                    Booking Details
+                    Tattoo Details
                   </h3>
                   <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray text-sm">Type</span>
-                      <span className="text-black font-medium">
-                        {formData.bookingType === "custom" ? "Custom Work" : "Cover-Up"}
-                      </span>
-                    </div>
-                    {formData.style && (
-                      <div className="flex justify-between">
-                        <span className="text-gray text-sm">Style</span>
-                        <span className="text-black font-medium">{formData.style}</span>
-                      </div>
-                    )}
-                    {formData.coverupStyle && (
-                      <div className="flex justify-between">
-                        <span className="text-gray text-sm">Cover-Up Style</span>
-                        <span className="text-black font-medium">{formData.coverupStyle}</span>
-                      </div>
-                    )}
                     {formData.size && (
                       <div className="flex justify-between">
                         <span className="text-gray text-sm">Size</span>
                         <span className="text-black font-medium">{formData.size}</span>
                       </div>
                     )}
-                    {formData.placement && (
+                    {formData.location && (
                       <div className="flex justify-between">
-                        <span className="text-gray text-sm">Placement</span>
-                        <span className="text-black font-medium">{formData.placement}</span>
+                        <span className="text-gray text-sm">Location</span>
+                        <span className="text-black font-medium">
+                          {formData.location === "Other" ? formData.locationOther : formData.location}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -672,7 +477,7 @@ export default function BookingPage() {
                         <div key={idx} className="flex justify-between">
                           <span className="text-gray text-sm">Option {idx + 1}</span>
                           <span className="text-black font-medium">
-                            {new Date(date).toLocaleDateString('en-US', {
+                            {new Date(date).toLocaleDateString('en-AU', {
                               weekday: 'long',
                               year: 'numeric',
                               month: 'long',
@@ -682,6 +487,23 @@ export default function BookingPage() {
                         </div>
                       ))}
                     </div>
+                  </div>
+                )}
+
+                {(formData.times.length > 0 || formData.flexibleTiming) && (
+                  <div className="border-t border-gray-light pt-6">
+                    <h3 className="text-sm font-medium text-black mb-4 uppercase tracking-wider">
+                      Preferred Times
+                    </h3>
+                    {formData.flexibleTiming ? (
+                      <p className="text-black font-medium">Flexible with timing</p>
+                    ) : (
+                      <div className="space-y-2">
+                        {formData.times.map((time, idx) => (
+                          <p key={idx} className="text-black font-medium">{time}</p>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -710,6 +532,15 @@ export default function BookingPage() {
                     )}
                   </div>
                 </div>
+
+                {formData.notes && (
+                  <div className="border-t border-gray-light pt-6">
+                    <h3 className="text-sm font-medium text-black mb-4 uppercase tracking-wider">
+                      Additional Notes
+                    </h3>
+                    <p className="text-black">{formData.notes}</p>
+                  </div>
+                )}
               </div>
 
               {submitError && (
@@ -720,8 +551,8 @@ export default function BookingPage() {
 
               <div className="mb-8 p-6 border border-gray-light bg-white">
                 <p className="text-sm text-gray">
-                  Once you submit, I&apos;ll review your request and get back to you within 24-48 hours
-                  to confirm availability and discuss deposit details.
+                  Once you submit, I'll review your request and get back to you within 24-48 hours
+                  to confirm availability and discuss the next steps.
                 </p>
               </div>
 
@@ -747,7 +578,7 @@ export default function BookingPage() {
           )}
 
           {/* Success Screen */}
-          {currentStep === totalSteps && (
+          {currentStep === totalSteps + 1 && (
             <div className="text-center py-20 animate-fadeIn">
               <div className="mb-8">
                 <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-black flex items-center justify-center">
@@ -769,7 +600,7 @@ export default function BookingPage() {
                   Request Received!
                 </h2>
                 <p className="text-lg text-gray mb-12 max-w-md mx-auto">
-                  Thanks for your booking request. I&apos;ll review your information
+                  Thanks for your booking request. I'll review your information
                   and get back to you within 24 hours.
                 </p>
               </div>

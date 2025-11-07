@@ -56,27 +56,6 @@ export default function HomePage() {
     "/images/flower-heart.jpg",
   ];
 
-  const services = [
-    {
-      number: "01",
-      title: "Custom Work",
-      description:
-        "I craft unique designs specifically for you, bringing your vision to life with precision and artistry. From concept to completion, every detail is tailored to your story.",
-    },
-    {
-      number: "02",
-      title: "Cover-Ups",
-      description:
-        "I transform existing tattoos into beautiful new artwork with expert techniques and creative solutions. We'll work together to reimagine your piece with fresh perspective.",
-    },
-    {
-      number: "03",
-      title: "Touch-Ups",
-      description:
-        "I restore and refresh your existing tattoos, maintaining their original beauty and vibrancy over time. Professional care to keep your art looking its best.",
-    },
-  ];
-
   const processSteps = [
     {
       number: 1,
@@ -120,10 +99,10 @@ export default function HomePage() {
           <Parallax speed={0.6} direction="up">
             <div className="mb-20 opacity-0 animate-[fadeInUp_0.8s_ease_0.3s_forwards]">
               <h1 className="font-serif text-[clamp(3rem,8vw,6rem)] font-light tracking-[-0.01em] leading-[1.1] mb-2 text-black">
-                Custom Art &
+                Your Vision,
               </h1>
               <div className="font-serif text-[clamp(3rem,8vw,6rem)] font-light tracking-[-0.01em] leading-[1.1] text-gray">
-                Cover-Ups
+                My Art
               </div>
             </div>
           </Parallax>
@@ -163,7 +142,7 @@ export default function HomePage() {
                   Featured Work
                 </h2>
                 <p className="text-lg text-gray max-w-[600px] mx-auto">
-                  A selection of recent custom pieces and cover-ups
+                  A selection of recent custom pieces
                 </p>
               </div>
             </ScrollReveal>
@@ -213,43 +192,21 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Services Section */}
-        <section className="py-20 px-8 bg-white" id="services">
+        {/* About Section */}
+        <section className="py-20 px-8 bg-white" id="about">
           <div className="max-w-[900px] mx-auto">
             <ScrollReveal>
               <div className="text-center mb-16">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-4 text-black">
-                  Services
+                  Custom Tattoo Art
                 </h2>
-                <p className="text-lg text-gray">What I offer</p>
+                <p className="text-lg text-gray max-w-[700px] mx-auto leading-relaxed">
+                  I specialise in creating unique, custom pieces that bring your vision to life.
+                  Whether it's delicate floral designs, natural elements, or something entirely your own,
+                  every tattoo is crafted with precision and care to tell your story.
+                </p>
               </div>
             </ScrollReveal>
-
-            <div className="flex flex-col gap-[4.5rem]">
-              {services.map((service, index) => (
-                <ScrollReveal key={index} delay={index * 0.15}>
-                  <div
-                    className={`pb-16 group ${
-                      index < services.length - 1
-                        ? "border-b border-gray-light"
-                        : ""
-                    }`}
-                  >
-                    <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 mb-6">
-                      <span className="font-serif text-xl text-gray font-light min-w-[40px]">
-                        {service.number}
-                      </span>
-                      <h3 className="font-serif text-4xl md:text-[2.25rem] font-normal text-black tracking-[-0.01em] transition-all duration-300 group-hover:tracking-[0.02em]">
-                        {service.title}
-                      </h3>
-                    </div>
-                    <p className="text-[1.0625rem] text-gray leading-[1.8] max-w-[700px] md:ml-[calc(40px+2rem)]">
-                      {service.description}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -297,8 +254,7 @@ export default function HomePage() {
                 Ready to Start Your Tattoo Journey?
               </h2>
               <p className="text-lg text-gray-light mb-16 max-w-[600px] mx-auto">
-                Book a free consultation to discuss your custom piece or cover-up
-                project.
+                Book a free consultation to discuss your custom piece.
               </p>
               <div className="flex gap-8 justify-center flex-wrap">
                 <Link
