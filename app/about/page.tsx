@@ -9,21 +9,21 @@ export default function AboutPage() {
   const specialties = [
     {
       number: "01",
-      title: "Custom Work",
+      title: "Custom Designs",
       description:
-        "Original designs crafted specifically for you. I'll work with your ideas to create a one-of-a-kind piece that reflects your vision and fits your body perfectly.",
+        "Original artwork crafted specifically for you. I'll work with your ideas to create a one-of-a-kind piece that reflects your vision and fits your body perfectly.",
     },
     {
       number: "02",
-      title: "Cover-Ups",
+      title: "Floral & Botanical",
       description:
-        "Transform tattoos you've outgrown into something you'll love. With careful planning and creative problem-solving, I can turn almost any piece into fresh art.",
+        "Delicate flowers, leaves, and natural elements that flow beautifully with your body. Each piece is thoughtfully composed to capture organic beauty.",
     },
     {
       number: "03",
-      title: "Blackwork",
+      title: "Nature Inspired",
       description:
-        "Bold, graphic designs using solid black ink. From geometric patterns to illustrative pieces, I create high-contrast work that makes a statement.",
+        "From fauna to landscapes, I bring the natural world to life with detailed, elegant designs that celebrate the beauty found in nature.",
     },
   ];
 
@@ -84,21 +84,20 @@ export default function AboutPage() {
                   <p className="text-[1.0625rem] leading-relaxed text-gray mb-7">
                     I&apos;ve been tattooing professionally for over a decade,
                     transforming skin into canvas and turning visions into art.
-                    What started as a passion in my garage has evolved into a
-                    craft I dedicate myself to every single day.
+                    What started as a passion has evolved into a craft I dedicate
+                    myself to every single day.
                   </p>
                   <p className="text-[1.0625rem] leading-relaxed text-gray mb-7">
-                    I specialize in custom designs and cover-ups, believing that
-                    every piece should be as unique as the person wearing it.
-                    Whether you&apos;re looking to bring a new idea to life or
-                    transform an old tattoo into something you&apos;ll love, I approach
-                    each project with the same care and attention to detail.
+                    I specialise in custom designs, believing that every piece
+                    should be as unique as the person wearing it. My work focuses
+                    on floral and nature-inspired pieces, bringing organic beauty
+                    to life through thoughtful design and precise technique.
                   </p>
                   <p className="text-[1.0625rem] leading-relaxed text-gray">
-                    My philosophy is simple:{" "}
-                    <strong>the art is the color</strong>. I let the tattoo work
-                    speak for itself, using clean technique and thoughtful
-                    composition to create pieces that stand the test of time.
+                    My philosophy is simple: I let the artwork speak for itself.
+                    Using clean technique and thoughtful composition, I create
+                    pieces that flow naturally with your body and stand the test
+                    of time.
                   </p>
                 </div>
               </Parallax>
