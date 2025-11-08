@@ -172,8 +172,12 @@ export async function POST(request: NextRequest) {
     `;
 
     // Send email via Resend
+    // For testing: Use onboarding@resend.dev (can only send to your Resend account email)
+    // For production: Verify your domain and use bookings@yourdomain.com
+    const fromEmail = process.env.FROM_EMAIL || "onboarding@resend.dev";
+
     const { data, error } = await resend.emails.send({
-      from: "NES TATTOO Booking <bookings@resend.dev>", // Update this when you have a custom domain
+      from: fromEmail,
       to: [artistEmail],
       replyTo: body.email,
       subject: emailSubject,
