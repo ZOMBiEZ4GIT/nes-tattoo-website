@@ -60,7 +60,7 @@ export default function PortfolioPage() {
               return (
                 <div
                   key={item.id}
-                  className="relative overflow-hidden bg-white border border-gray-light group transition-all duration-300 hover:shadow-lg mb-4 break-inside-avoid"
+                  className="relative overflow-hidden bg-white border border-gray group transition-all duration-300 hover:shadow-lg mb-4 break-inside-avoid"
                 >
                   <Image
                     src={src}
