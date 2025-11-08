@@ -40,47 +40,35 @@ export default function HomePage() {
     return () => observer.disconnect();
   }, []);
 
-  const portfolioItems = [
-    { category: "Custom Work", title: "Geometric Sleeve" },
-    { category: "Cover-Up", title: "Floral Cover-Up" },
-    { category: "Custom Work", title: "Minimalist Linework" },
-    { category: "Custom Work", title: "Abstract Art" },
-    { category: "Cover-Up", title: "Script Transformation" },
-    { category: "Custom Work", title: "Botanical Design" },
-  ];
-
-  const homeImages = [
-    "/images/buu.jpg",
-    "/images/peacock.jpg",
-    "/images/snail.jpg",
-    "/images/two-birds.jpg",
-    "/images/flower-heart.jpg",
-  ];
+  // Use first 9 portfolio images for home page showcase
+  const homeImages = Array.from({ length: 9 }, (_, i) =>
+    `/images/portfolio/portfolio-${String(i + 1).padStart(2, '0')}.jpg`
+  );
 
   const processSteps = [
     {
       number: 1,
-      title: "Book Consultation",
+      title: "Let's Talk",
       description:
-        "Start by booking a free consultation. I'll discuss your ideas, placement, size, and style preferences with you.",
+        "We start with a relaxed conversation about your vision. No commitment, no pressure—just exploring your ideas, placement, and style together.",
     },
     {
       number: 2,
-      title: "Design Review",
+      title: "Reserve Your Spot",
       description:
-        "I'll create a custom design based on our discussion. I'll refine it with you until it's exactly what you want.",
+        "When you're ready to move forward, we'll reserve your session. This locks in your date and lets me dedicate time to your piece.",
     },
     {
       number: 3,
-      title: "Schedule Session",
+      title: "Your Custom Design",
       description:
-        "Once the design is approved, I'll schedule your tattoo session and confirm all details including deposit.",
+        "I'll create something unique for you, working through revisions together until it captures exactly what you're envisioning.",
     },
     {
       number: 4,
-      title: "Get Tattooed",
+      title: "Bring It to Life",
       description:
-        "On the day of your session, I'll bring your design to life with precision and care in a professional environment.",
+        "On the day, we create your tattoo in a professional, comfortable setting. Everything's already sorted—you just need to show up ready.",
     },
   ];
 
@@ -151,8 +139,7 @@ export default function HomePage() {
             {/* Asymmetric Portfolio Grid */}
             <ScrollReveal delay={0.2} duration={1.0}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 auto-rows-[250px]">
-                {portfolioItems.map((item, index) => {
-                  const src = homeImages[index % homeImages.length];
+                {homeImages.map((src, index) => {
                   return (
                     <div
                       key={index}
@@ -163,20 +150,11 @@ export default function HomePage() {
                       <div className="w-full h-full relative overflow-hidden">
                         <Image
                           src={src}
-                          alt={item.title}
+                          alt={`Featured tattoo work ${index + 1}`}
                           title=""
                           fill
                           className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/5" />
-                      </div>
-                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white/98 via-white/95 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <p className="text-xs text-gray uppercase tracking-wider mb-2 font-medium">
-                          {item.category}
-                        </p>
-                        <h3 className="text-lg font-semibold text-black leading-snug">
-                          {item.title}
-                        </h3>
                       </div>
                     </div>
                   );

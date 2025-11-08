@@ -5,16 +5,16 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Type definitions for booking data
 export interface BookingFormData {
-  bookingType: "custom" | "coverup";
-  style?: string;
-  designDescription?: string;
-  coverupPhoto?: string; // Base64 encoded image or file path
   size?: string;
-  placement?: string;
+  location?: string;
+  locationOther?: string;
   dates: string[];
-  name: string;
-  email: string;
+  times: string[];
+  flexibleTiming: boolean;
+  name?: string;
+  email?: string;
   phone?: string;
+  notes?: string;
 }
 
 // Server-side validation helper
@@ -22,10 +22,6 @@ function validateBookingData(data: any): { valid: boolean; errors: string[] } {
   const errors: string[] = [];
 
   // Required fields
-  if (!data.bookingType || !["custom", "coverup"].includes(data.bookingType)) {
-    errors.push("Valid booking type is required (custom or coverup)");
-  }
-
   if (!data.name || data.name.trim().length < 2) {
     errors.push("Name must be at least 2 characters");
   }
@@ -34,19 +30,8 @@ function validateBookingData(data: any): { valid: boolean; errors: string[] } {
     errors.push("Valid email address is required");
   }
 
-  if (!data.dates || !Array.isArray(data.dates) || data.dates.length === 0) {
+  if (!data.dates || !Array.isArray(data.dates) || data.dates.filter((d: string) => d).length === 0) {
     errors.push("At least one preferred date is required");
-  }
-
-  // Conditional validation based on booking type
-  if (data.bookingType === "custom") {
-    if (!data.designDescription || data.designDescription.trim().length < 10) {
-      errors.push("Design description must be at least 10 characters");
-    }
-  }
-
-  if (data.bookingType === "coverup" && !data.coverupPhoto) {
-    errors.push("Cover-up photo is required for cover-up bookings");
   }
 
   return {
@@ -87,7 +72,13 @@ export async function POST(request: NextRequest) {
     const artistEmail = process.env.ARTIST_EMAIL || "noreply@example.com";
 
     // Format the email content
-    const emailSubject = `New ${body.bookingType === "custom" ? "Custom Tattoo" : "Cover-Up"} Booking Request`;
+    const emailSubject = `New Tattoo Booking Request from ${body.name}`;
+
+    // Filter out empty dates
+    const validDates = body.dates.filter((d) => d);
+
+    // Format location
+    const location = body.location === "Other" ? body.locationOther : body.location;
 
     const emailHtml = `
       <!DOCTYPE html>
@@ -103,7 +94,6 @@ export async function POST(request: NextRequest) {
           .section { margin-bottom: 25px; }
           .section-title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #6B6B6B; margin-bottom: 10px; }
           .section-content { font-size: 16px; color: #0A0A0A; margin: 0; }
-          .booking-type { display: inline-block; background: #0A0A0A; color: #FFFFFF; padding: 8px 16px; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; }
           .footer { margin-top: 40px; padding-top: 30px; border-top: 1px solid #E5E5E5; text-align: center; font-size: 14px; color: #6B6B6B; }
         </style>
       </head>
@@ -114,8 +104,6 @@ export async function POST(request: NextRequest) {
             <p style="margin: 10px 0 0; color: #6B6B6B; font-size: 16px;">New Booking Request</p>
           </div>
 
-          <div class="booking-type">${body.bookingType === "custom" ? "Custom Work" : "Cover-Up"}</div>
-
           <div class="section">
             <div class="section-title">Client Information</div>
             <p class="section-content"><strong>Name:</strong> ${body.name}</p>
@@ -123,43 +111,44 @@ export async function POST(request: NextRequest) {
             ${body.phone ? `<p class="section-content"><strong>Phone:</strong> ${body.phone}</p>` : ""}
           </div>
 
-          ${body.style ? `
-          <div class="section">
-            <div class="section-title">Style Preference</div>
-            <p class="section-content">${body.style}</p>
-          </div>
-          ` : ""}
-
-          ${body.designDescription ? `
-          <div class="section">
-            <div class="section-title">Design Description</div>
-            <p class="section-content">${body.designDescription}</p>
-          </div>
-          ` : ""}
-
           ${body.size ? `
           <div class="section">
-            <div class="section-title">Size</div>
+            <div class="section-title">Tattoo Size</div>
             <p class="section-content">${body.size}</p>
           </div>
           ` : ""}
 
-          ${body.placement ? `
+          ${location ? `
           <div class="section">
-            <div class="section-title">Placement</div>
-            <p class="section-content">${body.placement}</p>
+            <div class="section-title">Placement Location</div>
+            <p class="section-content">${location}</p>
           </div>
           ` : ""}
 
+          ${validDates.length > 0 ? `
           <div class="section">
             <div class="section-title">Preferred Dates</div>
-            <p class="section-content">${body.dates.join(", ")}</p>
+            ${validDates.map((date) => `<p class="section-content">${new Date(date).toLocaleDateString('en-AU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>`).join('')}
           </div>
+          ` : ""}
 
-          ${body.coverupPhoto ? `
+          ${body.times && body.times.length > 0 ? `
           <div class="section">
-            <div class="section-title">Cover-Up Photo</div>
-            <p class="section-content">A cover-up photo was attached to this booking request.</p>
+            <div class="section-title">Preferred Times</div>
+            ${body.times.map((time) => `<p class="section-content">${time}</p>`).join('')}
+          </div>
+          ` : ""}
+
+          ${body.flexibleTiming ? `
+          <div class="section">
+            <p class="section-content"><em>Client is flexible with timing</em></p>
+          </div>
+          ` : ""}
+
+          ${body.notes ? `
+          <div class="section">
+            <div class="section-title">Additional Notes</div>
+            <p class="section-content">${body.notes}</p>
           </div>
           ` : ""}
 
