@@ -226,30 +226,26 @@ export default function PortfolioPage() {
         {/* Portfolio Grid */}
         <section className="px-6 pb-24">
           <div className="max-w-[1600px] mx-auto">
-            <ScrollReveal delay={0.2}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-auto">
-                {visibleItems.map((item, index) => (
-                  <button
-                    key={item.id}
-                    onClick={() => openLightbox(index)}
-                    className="relative overflow-hidden bg-white border border-gray-200 group transition-all duration-500 hover:shadow-2xl hover:border-black w-full cursor-pointer"
-                    style={{
-                      animationDelay: `${index * 30}ms`
-                    }}
-                  >
-                    {/* Image Container */}
-                    <div className="relative overflow-hidden">
-                      <Image
-                        src={item.src}
-                        alt={item.title}
-                        title=""
-                        width={600}
-                        height={600}
-                        loading={index < 6 ? "eager" : "lazy"}
-                        quality={80}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                        className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-                      />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-auto">
+              {visibleItems.map((item, index) => (
+                <button
+                  key={item.id}
+                  onClick={() => openLightbox(index)}
+                  className="relative overflow-hidden bg-white group transition-all duration-500 hover:shadow-2xl w-full cursor-pointer"
+                >
+                  {/* Image Container */}
+                  <div className="relative overflow-hidden">
+                    <Image
+                      src={item.src}
+                      alt={item.title}
+                      title=""
+                      width={600}
+                      height={600}
+                      priority={index < 12}
+                      quality={80}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                      className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                    />
 
                       {/* Overlay on hover */}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500"></div>
@@ -262,7 +258,6 @@ export default function PortfolioPage() {
                   </button>
                 ))}
               </div>
-            </ScrollReveal>
 
             {/* Load More Button */}
             {hasMore && (

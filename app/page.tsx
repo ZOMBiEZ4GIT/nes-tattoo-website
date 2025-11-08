@@ -137,31 +137,28 @@ export default function HomePage() {
             </ScrollReveal>
 
             {/* Featured Work Grid */}
-            <ScrollReveal delay={0.2} duration={1.0}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 auto-rows-auto">
-                {homeImages.map((src, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="bg-white border border-gray-light rounded overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-lg"
-                    >
-                      <Image
-                        src={src}
-                        alt={`Featured tattoo work ${index + 1}`}
-                        title=""
-                        width={800}
-                        height={800}
-                        priority={index < 3}
-                        loading={index < 3 ? "eager" : "lazy"}
-                        quality={85}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </ScrollReveal>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 auto-rows-auto">
+              {homeImages.map((src, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="bg-white overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-lg"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Featured tattoo work ${index + 1}`}
+                      title=""
+                      width={800}
+                      height={800}
+                      priority={true}
+                      quality={85}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
+                    />
+                  </div>
+                );
+              })}
+            </div>
 
             <div className="text-center pt-8">
               <Link
