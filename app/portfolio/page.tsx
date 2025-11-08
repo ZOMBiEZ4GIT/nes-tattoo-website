@@ -54,28 +54,30 @@ export default function PortfolioPage() {
 
         {/* Portfolio Grid */}
         <section className="px-8 pb-24 bg-white">
-          <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 max-w-[1600px] mx-auto">
-            {visibleItems.map((item, index) => {
-              const src = portfolioImages[index];
-              return (
-                <div
-                  key={item.id}
-                  className="relative overflow-hidden bg-white border border-gray group transition-all duration-300 hover:shadow-lg mb-4 break-inside-avoid"
-                >
-                  <Image
-                    src={src}
-                    alt={`Tattoo work ${index + 1}`}
-                    title=""
-                    width={600}
-                    height={600}
-                    loading={index < 6 ? "eager" : "lazy"}
-                    quality={75}
-                    className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
-                  />
-                </div>
-              );
-            })}
-          </div>
+          <ScrollReveal delay={0.2} duration={1.0}>
+            <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 max-w-[1600px] mx-auto">
+              {visibleItems.map((item, index) => {
+                const src = portfolioImages[index];
+                return (
+                  <div
+                    key={item.id}
+                    className="relative overflow-hidden bg-white border border-gray-light group transition-all duration-300 hover:shadow-lg mb-4 break-inside-avoid"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Tattoo work ${index + 1}`}
+                      title=""
+                      width={600}
+                      height={600}
+                      loading={index < 6 ? "eager" : "lazy"}
+                      quality={75}
+                      className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </ScrollReveal>
 
           {hasMore && (
             <div className="text-center mt-16">
