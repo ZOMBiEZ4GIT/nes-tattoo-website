@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -160,10 +161,11 @@ export default function HomePage() {
                       }`}
                     >
                       <div className="w-full h-full relative overflow-hidden">
-                        <img
+                        <Image
                           src={src}
                           alt={item.title}
-                          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
+                          fill
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
                         />
                         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/5" />
                       </div>
@@ -202,7 +204,7 @@ export default function HomePage() {
                 </h2>
                 <p className="text-lg text-gray max-w-[700px] mx-auto leading-relaxed">
                   I specialise in creating unique, custom pieces that bring your vision to life.
-                  Whether it's delicate floral designs, natural elements, or something entirely your own,
+                  Whether it&apos;s delicate floral designs, natural elements, or something entirely your own,
                   every tattoo is crafted with precision and care to tell your story.
                 </p>
               </div>

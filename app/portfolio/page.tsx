@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -144,10 +145,11 @@ export default function PortfolioPage() {
                         : "aspect-square"
                     }`}
                   >
-                    <img
+                    <Image
                       src={src}
                       alt={item.title}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
+                      fill
+                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
                     />
 
                     {/* Info Overlay */}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Parallax from "@/components/Parallax";
@@ -67,10 +68,11 @@ export default function AboutPage() {
               {/* Image */}
               <Parallax speed={0.4} direction="up">
                 <div className="relative aspect-[4/5] overflow-hidden border border-gray-light group">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop"
                     alt="NES Tattoo Artist"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
                   />
                 </div>
               </Parallax>

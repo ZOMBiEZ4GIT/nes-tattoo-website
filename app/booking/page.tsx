@@ -321,7 +321,7 @@ export default function BookingPage() {
                       }
                       className="mr-4 w-5 h-5"
                     />
-                    <span className="text-base text-black">I'm flexible with timing</span>
+                    <span className="text-base text-black">I&apos;m flexible with timing</span>
                   </label>
                 </div>
 
@@ -551,7 +551,7 @@ export default function BookingPage() {
 
               <div className="mb-8 p-6 border border-gray-light bg-white">
                 <p className="text-sm text-gray">
-                  Once you submit, I'll review your request and get back to you within 24-48 hours
+                  Once you submit, I&apos;ll review your request and get back to you within 24-48 hours
                   to confirm availability and discuss the next steps.
                 </p>
               </div>
@@ -600,7 +600,7 @@ export default function BookingPage() {
                   Request Received!
                 </h2>
                 <p className="text-lg text-gray mb-12 max-w-md mx-auto">
-                  Thanks for your booking request. I'll review your information
+                  Thanks for your booking request. I&apos;ll review your information
                   and get back to you within 24 hours.
                 </p>
               </div>
