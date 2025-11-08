@@ -5,11 +5,12 @@ import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
+import Masonry from "react-masonry-css";
 
 interface PortfolioItem {
   id: number;
   src: string;
-  category: "custom" | "fingernail" | "coverup";
+  category: "custom" | "fingernail" | "coverup" | "custom,coverup";
   title: string;
 }
 
@@ -35,7 +36,7 @@ export default function PortfolioPage() {
     { id: 13, src: '/images/portfolio/portfolio-13.jpg', category: "custom", title: "Hummingbird and Red Hibiscus" },
     { id: 14, src: '/images/portfolio/portfolio-14.jpg', category: "custom", title: "Hummingbird Head Detail" },
     { id: 15, src: '/images/portfolio/portfolio-15.jpg', category: "custom", title: "Realistic Empanada" },
-    { id: 16, src: '/images/portfolio/portfolio-16.jpg', category: "custom", title: "Barn Swallow with Red Orchid" },
+    { id: 16, src: '/images/portfolio/portfolio-16.jpg', category: "custom,coverup", title: "Barn Swallow with Red Orchid" },
     { id: 17, src: '/images/portfolio/portfolio-17.jpg', category: "custom", title: "Red Orchid Detail" },
     { id: 18, src: '/images/portfolio/portfolio-18.jpg', category: "custom", title: "Red Orchid Close-up" },
     { id: 19, src: '/images/portfolio/portfolio-19.jpg', category: "custom", title: "Exotic Crested Hummingbird" },
@@ -45,7 +46,7 @@ export default function PortfolioPage() {
     { id: 23, src: '/images/portfolio/portfolio-23.jpg', category: "custom", title: "Wildflower Details" },
     { id: 24, src: '/images/portfolio/portfolio-24.jpg', category: "custom", title: "Scattered Botanical Elements" },
     { id: 25, src: '/images/portfolio/portfolio-25.jpg', category: "custom", title: "Yellow Dandelion" },
-    { id: 26, src: '/images/portfolio/portfolio-26.jpg', category: "custom", title: "Dandelion Seed Head" },
+    { id: 26, src: '/images/portfolio/portfolio-26.jpg', category: "custom,coverup", title: "Dandelion Seed Head" },
     { id: 27, src: '/images/portfolio/portfolio-27.jpg', category: "custom", title: "Pink Lotus Petal Detail" },
     { id: 28, src: '/images/portfolio/portfolio-28.jpg', category: "custom", title: "Trailing Violet or Pansy" },
     { id: 29, src: '/images/portfolio/portfolio-29.jpg', category: "custom", title: "Double Lavender Sprigs" },
@@ -62,7 +63,7 @@ export default function PortfolioPage() {
     { id: 40, src: '/images/portfolio/portfolio-40.jpg', category: "custom", title: "Tiger Lily Stamens" },
     { id: 41, src: '/images/portfolio/portfolio-41.jpg', category: "custom", title: "Pomegranate and Sunflower WIP" },
     { id: 42, src: '/images/portfolio/portfolio-42.jpg', category: "custom", title: "Peacock with Wildflower Garden" },
-    { id: 43, src: '/images/portfolio/portfolio-43.jpg', category: "custom", title: "Pink Peony Shoulder Piece" },
+    { id: 43, src: '/images/portfolio/portfolio-43.jpg', category: "custom,coverup", title: "Pink Peony Shoulder Piece" },
     { id: 44, src: '/images/portfolio/portfolio-44.jpg', category: "custom", title: "Whimsical Nautilus Shell" },
     { id: 45, src: '/images/portfolio/portfolio-45.jpg', category: "custom", title: "Pair of Songbirds" },
     { id: 48, src: '/images/portfolio/portfolio-48.jpg', category: "custom", title: "Australian Finches Pair" },
@@ -72,7 +73,7 @@ export default function PortfolioPage() {
     { id: 52, src: '/images/portfolio/portfolio-52.jpg', category: "custom", title: "Micro Realistic Tree" },
     { id: 53, src: '/images/portfolio/portfolio-53.jpg', category: "custom", title: "Ornate Chest Piece with Hummingbird" },
     { id: 54, src: '/images/portfolio/portfolio-54.jpg', category: "custom", title: "Gray Tabby Cat Portrait" },
-    { id: 55, src: '/images/portfolio/portfolio-55.jpg', category: "custom", title: "Purple Line Work Parrot" },
+    { id: 55, src: '/images/portfolio/portfolio-55.jpg', category: "custom,coverup", title: "Purple Line Work Parrot" },
     { id: 56, src: '/images/portfolio/portfolio-56.jpg', category: "custom", title: "Delicate Olive Branch" },
 
     // Fingernail Tattoos - portfolios 11, 12, 57, 58
@@ -91,23 +92,23 @@ export default function PortfolioPage() {
       id: "custom" as Category,
       name: "Custom Work",
       description: "Custom botanical and nature tattoos, designed just for you",
-      count: portfolioItems.filter(item => item.category === "custom").length,
+      count: portfolioItems.filter(item => item.category.includes("custom")).length,
     },
     {
       id: "fingernail" as Category,
       name: "Fingernail Tattoo",
       description: "Delicate micro tattoos on the fingernail area, showcasing precision and artistry",
-      count: portfolioItems.filter(item => item.category === "fingernail").length,
+      count: portfolioItems.filter(item => item.category.includes("fingernail")).length,
     },
     {
       id: "coverup" as Category,
       name: "Cover-Ups & Touch-Ups",
       description: "Transformative cover-ups and refreshed designs bringing new life to existing tattoos",
-      count: portfolioItems.filter(item => item.category === "coverup").length,
+      count: portfolioItems.filter(item => item.category.includes("coverup")).length,
     },
   ];
 
-  const filteredItems = portfolioItems.filter(item => item.category === activeCategory);
+  const filteredItems = portfolioItems.filter(item => item.category.includes(activeCategory));
   const visibleItems = filteredItems.slice(0, loadedCount);
   const hasMore = loadedCount < filteredItems.length;
 
@@ -182,14 +183,25 @@ export default function PortfolioPage() {
           </ScrollReveal>
         </section>
 
-        {/* Portfolio Grid */}
+        {/* Portfolio Masonry Grid */}
         <section className="px-6 pb-24">
           <div className="max-w-[1600px] mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-auto">
+            <Masonry
+              breakpointCols={{
+                default: 4,
+                1536: 4,
+                1280: 3,
+                1024: 3,
+                768: 2,
+                640: 1
+              }}
+              className="flex -ml-4 w-auto"
+              columnClassName="pl-4 bg-clip-padding"
+            >
               {visibleItems.map((item, index) => (
                 <div
                   key={item.id}
-                  className="relative overflow-hidden bg-white group transition-all duration-500 hover:shadow-2xl w-full"
+                  className="relative overflow-hidden bg-white group transition-all duration-500 hover:shadow-2xl mb-4"
                 >
                   {/* Image Container */}
                   <div className="relative overflow-hidden">
@@ -200,22 +212,22 @@ export default function PortfolioPage() {
                       width={600}
                       height={600}
                       priority={index < 12}
-                      quality={80}
+                      quality={90}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                      className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                      className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                     />
 
-                      {/* Overlay on hover */}
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500"></div>
-                    </div>
-
-                    {/* Optional: Image number indicator */}
-                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      #{item.id}
-                    </div>
+                    {/* Overlay on hover */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500"></div>
                   </div>
-                ))}
-              </div>
+
+                  {/* Optional: Image number indicator */}
+                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    #{item.id}
+                  </div>
+                </div>
+              ))}
+            </Masonry>
 
             {/* Load More Button */}
             {hasMore && (
