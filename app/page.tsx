@@ -40,9 +40,9 @@ export default function HomePage() {
     return () => observer.disconnect();
   }, []);
 
-  // Use first 9 portfolio images for home page showcase
+  // Use portfolio highlights for home page showcase
   const homeImages = Array.from({ length: 9 }, (_, i) =>
-    `/images/portfolio/portfolio-${String(i + 1).padStart(2, '0')}.jpg`
+    `/images/portfolio-highlights/hero-${String(i + 1).padStart(2, '0')}.jpg`
   );
 
   const processSteps = [
@@ -136,26 +136,23 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
 
-            {/* Asymmetric Portfolio Grid */}
+            {/* Featured Work Grid */}
             <ScrollReveal delay={0.2} duration={1.0}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 auto-rows-[250px]">
+              <div className="columns-1 md:columns-2 lg:columns-3 gap-6 mb-12">
                 {homeImages.map((src, index) => {
                   return (
                     <div
                       key={index}
-                      className={`bg-white border border-gray-light rounded overflow-hidden cursor-pointer group relative ${
-                        index === 0 || index === 3 ? "md:row-span-2" : ""
-                      }`}
+                      className="bg-white border border-gray-light rounded overflow-hidden cursor-pointer group mb-6 break-inside-avoid transition-all duration-300 hover:shadow-lg"
                     >
-                      <div className="w-full h-full relative overflow-hidden">
-                        <Image
-                          src={src}
-                          alt={`Featured tattoo work ${index + 1}`}
-                          title=""
-                          fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
-                        />
-                      </div>
+                      <Image
+                        src={src}
+                        alt={`Featured tattoo work ${index + 1}`}
+                        title=""
+                        width={800}
+                        height={800}
+                        className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
+                      />
                     </div>
                   );
                 })}

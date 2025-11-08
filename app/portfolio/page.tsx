@@ -46,20 +46,21 @@ export default function PortfolioPage() {
         {/* Portfolio Grid */}
         <section className="px-12 pb-40 bg-white">
           <ScrollReveal delay={0.2} duration={1.0}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1400px] mx-auto">
+            <div className="columns-1 md:columns-2 lg:columns-3 gap-8 max-w-[1400px] mx-auto">
               {portfolioItems.map((item, index) => {
                 const src = portfolioImages[index];
                 return (
                   <div
                     key={item.id}
-                    className="relative overflow-hidden bg-white border border-gray-light group transition-all duration-300 hover:-translate-y-1 hover:shadow-lg aspect-square"
+                    className="relative overflow-hidden bg-white border border-gray-light group transition-all duration-300 hover:shadow-lg mb-8 break-inside-avoid"
                   >
                     <Image
                       src={src}
                       alt={`Tattoo work ${index + 1}`}
                       title=""
-                      fill
-                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
+                      width={800}
+                      height={800}
+                      className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
                     />
                   </div>
                 );
