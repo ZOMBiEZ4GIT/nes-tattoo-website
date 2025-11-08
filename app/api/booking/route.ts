@@ -69,7 +69,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if artist email is configured
-    const artistEmail = process.env.ARTIST_EMAIL || "noreply@example.com";
+    const artistEmail = process.env.ARTIST_EMAIL;
+    if (!artistEmail) {
+      console.error("ARTIST_EMAIL is not configured");
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Artist email is not configured. Please contact support.",
+        },
+        { status: 500 }
+      );
+    }
 
     // Format the email content
     const emailSubject = `New Tattoo Booking Request from ${body.name}`;
@@ -172,10 +182,13 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("Resend email error:", error);
+      // More detailed error message for debugging
+      const errorMessage = error.message || "Failed to send booking request. Please try again or contact us directly.";
       return NextResponse.json(
         {
           success: false,
-          message: "Failed to send booking request. Please try again or contact us directly.",
+          message: errorMessage,
+          error: process.env.NODE_ENV === 'development' ? error : undefined,
         },
         { status: 500 }
       );
