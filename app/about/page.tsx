@@ -131,6 +131,7 @@ export default function AboutPage() {
                       alt={`Inspiration ${index + 1}`}
                       title=""
                       fill
+                      sizes="(max-width: 768px) 50vw, 33vw"
                       className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400 group-hover:scale-105"
                     />
                   </div>

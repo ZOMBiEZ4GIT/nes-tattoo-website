@@ -227,12 +227,12 @@ export default function PortfolioPage() {
         <section className="px-6 pb-24">
           <div className="max-w-[1600px] mx-auto">
             <ScrollReveal delay={0.2}>
-              <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-auto">
                 {visibleItems.map((item, index) => (
                   <button
                     key={item.id}
                     onClick={() => openLightbox(index)}
-                    className="relative overflow-hidden bg-white border border-gray-200 group transition-all duration-500 hover:shadow-2xl hover:border-black mb-4 break-inside-avoid w-full cursor-pointer"
+                    className="relative overflow-hidden bg-white border border-gray-200 group transition-all duration-500 hover:shadow-2xl hover:border-black w-full cursor-pointer"
                     style={{
                       animationDelay: `${index * 30}ms`
                     }}
@@ -247,6 +247,7 @@ export default function PortfolioPage() {
                         height={600}
                         loading={index < 6 ? "eager" : "lazy"}
                         quality={80}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                         className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                       />
 
@@ -330,10 +331,10 @@ export default function PortfolioPage() {
                 e.stopPropagation();
                 goToPrevious();
               }}
-              className="absolute left-6 z-60 text-white hover:text-gray-300 transition-colors p-4"
+              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-60 text-white hover:text-gray-300 transition-colors p-3 md:p-4 bg-black/30 md:bg-transparent rounded-full touch-manipulation"
               aria-label="Previous image"
             >
-              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
@@ -346,10 +347,10 @@ export default function PortfolioPage() {
                 e.stopPropagation();
                 goToNext();
               }}
-              className="absolute right-6 z-60 text-white hover:text-gray-300 transition-colors p-4"
+              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-60 text-white hover:text-gray-300 transition-colors p-3 md:p-4 bg-black/30 md:bg-transparent rounded-full touch-manipulation"
               aria-label="Next image"
             >
-              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -357,7 +358,7 @@ export default function PortfolioPage() {
 
           {/* Image Container */}
           <div
-            className="relative max-w-7xl max-h-[90vh] mx-auto px-16"
+            className="relative max-w-7xl max-h-[90vh] mx-auto px-4 md:px-16"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -380,9 +381,10 @@ export default function PortfolioPage() {
             </div>
           </div>
 
-          {/* Keyboard hint */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-xs tracking-wider">
-            Use arrow keys to navigate • ESC to close
+          {/* Navigation hint */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-xs tracking-wider text-center px-4">
+            <span className="hidden md:inline">Use arrow keys to navigate • ESC to close</span>
+            <span className="md:hidden">Tap arrows to navigate • Tap outside to close</span>
           </div>
         </div>
       )}
