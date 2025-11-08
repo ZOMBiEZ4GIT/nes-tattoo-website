@@ -1,0 +1,18 @@
+# Robots.txt for NES TATTOO
+# Melbourne-based fine art colour realism tattoo artist
+
+User-agent: *
+Allow: /
+Allow: /portfolio
+Allow: /about
+Allow: /booking
+
+# Disallow API routes and private paths
+Disallow: /api/
+
+# Allow search engines to crawl images
+User-agent: Googlebot-Image
+Allow: /images/
+
+# Sitemap location
+Sitemap: https://nestattoo.com/sitemap.xml

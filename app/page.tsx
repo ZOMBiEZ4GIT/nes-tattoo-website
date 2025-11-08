@@ -151,6 +151,9 @@ export default function HomePage() {
                         title=""
                         width={800}
                         height={800}
+                        priority={index < 3}
+                        loading={index < 3 ? "eager" : "lazy"}
+                        quality={85}
                         className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
                       />
                     </div>

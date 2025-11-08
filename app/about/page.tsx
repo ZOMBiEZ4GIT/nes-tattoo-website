@@ -43,20 +43,6 @@ export default function AboutPage() {
     },
   ];
 
-  const studios = [
-    {
-      name: "Downtown Studio",
-      address: "123 Main Street\nDowntown District\nCity, State 12345",
-      hours: "Tuesday - Saturday\n12:00 PM - 8:00 PM",
-      phone: "+1 (234) 567-890",
-    },
-    {
-      name: "Westside Location",
-      address: "456 Oak Avenue\nWestside Plaza\nCity, State 12346",
-      hours: "Thursday - Sunday\n1:00 PM - 9:00 PM",
-      phone: "+1 (234) 567-891",
-    },
-  ];
 
   return (
     <>
@@ -96,22 +82,22 @@ export default function AboutPage() {
                     My Story
                   </h2>
                   <p className="text-[1.0625rem] leading-relaxed text-gray mb-7">
-                    I&apos;ve been tattooing professionally for over a decade,
-                    transforming skin into canvas and turning visions into art.
-                    What started as a passion has evolved into a craft I dedicate
-                    myself to every single day.
+                    With 8 years of professional tattooing and a Bachelor of Fine Art,
+                    I&apos;ve developed a practice rooted in artistic integrity and technical skill.
+                    What began as a passion for creating beautiful, meaningful art has evolved into
+                    a dedicated craft I refine every single day.
                   </p>
                   <p className="text-[1.0625rem] leading-relaxed text-gray mb-7">
-                    I specialise in custom designs, believing that every piece
-                    should be as unique as the person wearing it. My work focuses
-                    on floral and nature-inspired pieces, bringing organic beauty
-                    to life through thoughtful design and precise technique.
+                    I specialise in fine art colour realism, with a particular focus on botanical
+                    and nature-inspired designs. Every tattoo is custom-designed for you—no flash,
+                    no templates. I believe your tattoo should be as unique as you are, flowing
+                    naturally with your body while telling your story.
                   </p>
                   <p className="text-[1.0625rem] leading-relaxed text-gray">
-                    My philosophy is simple: I let the artwork speak for itself.
-                    Using clean technique and thoughtful composition, I create
-                    pieces that flow naturally with your body and stand the test
-                    of time.
+                    My approach prioritises comfort, trust, and quality. I take the time needed
+                    to ensure colours are laid correctly and details are precise. Many clients
+                    appreciate not just the final result, but the safe, patient, and professional
+                    environment I provide throughout the entire process.
                   </p>
                 </div>
               </Parallax>
@@ -185,65 +171,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Studios Section */}
-        <section className="py-28 px-12 bg-white">
-          <div className="max-w-[1200px] mx-auto">
-            <Parallax speed={0.5} direction="up">
-              <div className="text-center mb-20">
-                <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal text-black">
-                  Where to Find Me
-                </h2>
-              </div>
-            </Parallax>
-
-            <Parallax speed={0.5} direction="up">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-16">
-                {studios.map((studio, index) => (
-                  <div
-                    key={index}
-                    className="border border-gray-light p-12 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg"
-                  >
-                    <h3 className="font-serif text-[1.875rem] font-normal mb-9 text-black">
-                      {studio.name}
-                    </h3>
-                    <div className="flex flex-col gap-6">
-                      <div className="flex items-start gap-6">
-                        <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
-                          Address
-                        </span>
-                        <span className="text-[1.0625rem] leading-relaxed text-black whitespace-pre-line">
-                          {studio.address}
-                        </span>
-                      </div>
-                      <div className="flex items-start gap-6">
-                        <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
-                          Hours
-                        </span>
-                        <span className="text-[1.0625rem] leading-relaxed text-black whitespace-pre-line">
-                          {studio.hours}
-                        </span>
-                      </div>
-                      <div className="flex items-start gap-6">
-                        <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray min-w-[85px]">
-                          Contact
-                        </span>
-                        <span className="text-[1.0625rem] leading-relaxed text-black">
-                          <a
-                            href={`tel:${studio.phone}`}
-                            className="border-b border-transparent hover:border-black transition-colors duration-200"
-                          >
-                            {studio.phone}
-                          </a>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Parallax>
-          </div>
-        </section>
-
         {/* Contact Section */}
         <section className="py-28 px-12 bg-[#FAFAFA] text-center">
           <Parallax speed={0.5} direction="up">
@@ -263,10 +190,10 @@ export default function AboutPage() {
                   </span>
                   <span className="text-[1.3125rem] text-black">
                     <a
-                      href="mailto:contact@nestattoo.com"
+                      href="mailto:nes@nestattoo.com"
                       className="border-b border-transparent hover:border-black transition-colors duration-200"
                     >
-                      contact@nestattoo.com
+                      nes@nestattoo.com
                     </a>
                   </span>
                 </div>
@@ -276,10 +203,10 @@ export default function AboutPage() {
                   </span>
                   <span className="text-[1.3125rem] text-black">
                     <a
-                      href="tel:+1234567890"
+                      href="tel:+61447955182"
                       className="border-b border-transparent hover:border-black transition-colors duration-200"
                     >
-                      +1 (234) 567-890
+                      0447 955 182
                     </a>
                   </span>
                 </div>
@@ -287,20 +214,12 @@ export default function AboutPage() {
 
               <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-7 mb-14">
                 <a
-                  href="https://instagram.com/nestattoo"
+                  href="https://instagram.com/nesrinkaraa_"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-medium tracking-wider uppercase text-gray px-8 py-3.5 border border-gray-light hover:text-black hover:border-black transition-all duration-200 md:min-w-0 min-w-[200px]"
                 >
                   Instagram
-                </a>
-                <a
-                  href="https://facebook.com/nestattoo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium tracking-wider uppercase text-gray px-8 py-3.5 border border-gray-light hover:text-black hover:border-black transition-all duration-200 md:min-w-0 min-w-[200px]"
-                >
-                  Facebook
                 </a>
               </div>
 

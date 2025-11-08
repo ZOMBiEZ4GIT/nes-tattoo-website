@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,6 +14,7 @@ interface PortfolioItem {
 }
 
 export default function PortfolioPage() {
+  const [loadedCount, setLoadedCount] = useState(20); // Start with 20 images
 
   const portfolioImages = Array.from({ length: 58 }, (_, i) =>
     `/images/portfolio/portfolio-${String(i + 1).padStart(2, '0')}.jpg`
@@ -24,6 +26,13 @@ export default function PortfolioPage() {
     tags: [],
     category: ["all"],
   }));
+
+  const visibleItems = portfolioItems.slice(0, loadedCount);
+  const hasMore = loadedCount < portfolioItems.length;
+
+  const loadMore = () => {
+    setLoadedCount(prev => Math.min(prev + 20, portfolioItems.length));
+  };
 
   return (
     <>
@@ -47,7 +56,7 @@ export default function PortfolioPage() {
         <section className="px-12 pb-40 bg-white">
           <ScrollReveal delay={0.2} duration={1.0}>
             <div className="columns-1 md:columns-2 lg:columns-3 gap-8 max-w-[1400px] mx-auto">
-              {portfolioItems.map((item, index) => {
+              {visibleItems.map((item, index) => {
                 const src = portfolioImages[index];
                 return (
                   <div
@@ -60,6 +69,8 @@ export default function PortfolioPage() {
                       title=""
                       width={800}
                       height={800}
+                      loading={index < 6 ? "eager" : "lazy"}
+                      quality={85}
                       className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
                     />
                   </div>
@@ -67,6 +78,17 @@ export default function PortfolioPage() {
               })}
             </div>
           </ScrollReveal>
+
+          {hasMore && (
+            <div className="text-center mt-16">
+              <button
+                onClick={loadMore}
+                className="inline-flex items-center justify-center px-12 py-4 text-sm font-medium tracking-wider uppercase bg-black text-white hover:opacity-90 active:scale-[0.98] transition-all duration-200"
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </section>
       </main>
 

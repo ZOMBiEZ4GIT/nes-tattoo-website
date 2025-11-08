@@ -67,18 +67,18 @@ export default function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <a
-                  href="mailto:contact@nestattoo.com"
+                  href="mailto:nes@nestattoo.com"
                   className="text-sm text-gray-light hover:text-white transition-colors duration-200"
                 >
-                  contact@nestattoo.com
+                  nes@nestattoo.com
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+61447955182"
                   className="text-sm text-gray-light hover:text-white transition-colors duration-200"
                 >
-                  +1 (234) 567-890
+                  0447 955 182
                 </a>
               </li>
             </ul>
@@ -92,22 +92,12 @@ export default function Footer() {
             <ul className="flex gap-4">
               <li>
                 <a
-                  href="https://instagram.com/nestattoo"
+                  href="https://instagram.com/nesrinkaraa_"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-gray-light hover:text-white transition-colors duration-200"
                 >
                   Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://facebook.com/nestattoo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-light hover:text-white transition-colors duration-200"
-                >
-                  Facebook
                 </a>
               </li>
             </ul>
