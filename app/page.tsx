@@ -78,15 +78,15 @@ export default function HomePage() {
 
       <main>
         {/* Hero Section */}
-        <section className="min-h-screen flex flex-col justify-center items-center text-center px-8 py-24 relative">
+        <section className="min-h-[85vh] flex flex-col justify-center items-center text-center px-8 py-16 relative">
           <Parallax speed={0.3} direction="up">
-            <div className="text-xs font-semibold tracking-[0.3em] uppercase text-black mb-24 opacity-0 animate-[fadeIn_0.6s_ease_0.1s_forwards]">
+            <div className="text-xs font-semibold tracking-[0.3em] uppercase text-black mb-12 opacity-0 animate-[fadeIn_0.6s_ease_0.1s_forwards]">
               NES TATTOO
             </div>
           </Parallax>
 
           <Parallax speed={0.6} direction="up">
-            <div className="mb-20 opacity-0 animate-[fadeInUp_0.8s_ease_0.3s_forwards]">
+            <div className="mb-10 opacity-0 animate-[fadeInUp_0.8s_ease_0.3s_forwards]">
               <h1 className="font-serif text-[clamp(3rem,8vw,6rem)] font-light tracking-[-0.01em] leading-[1.1] mb-2 text-black">
                 Your Vision,
               </h1>
@@ -123,10 +123,10 @@ export default function HomePage() {
         </section>
 
         {/* Featured Work Section */}
-        <section className="py-28 px-8 bg-white" id="featured-work">
+        <section className="py-16 px-8 bg-white" id="featured-work">
           <div className="max-w-[1280px] mx-auto">
             <ScrollReveal>
-              <div className="text-center mb-16">
+              <div className="text-center mb-10">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-4 text-black">
                   Featured Work
                 </h2>
@@ -138,12 +138,12 @@ export default function HomePage() {
 
             {/* Featured Work Grid */}
             <ScrollReveal delay={0.2} duration={1.0}>
-              <div className="columns-1 md:columns-2 lg:columns-3 gap-6 mb-12">
+              <div className="columns-1 md:columns-2 lg:columns-3 gap-4 mb-8">
                 {homeImages.map((src, index) => {
                   return (
                     <div
                       key={index}
-                      className="bg-white border border-gray-light rounded overflow-hidden cursor-pointer group mb-6 break-inside-avoid transition-all duration-300 hover:shadow-lg"
+                      className="bg-white border border-gray-light rounded overflow-hidden cursor-pointer group mb-4 break-inside-avoid transition-all duration-300 hover:shadow-lg"
                     >
                       <Image
                         src={src}
@@ -162,7 +162,7 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
 
-            <div className="text-center pt-16">
+            <div className="text-center pt-8">
               <Link
                 href="/portfolio"
                 className="inline-flex items-center justify-center px-8 py-4 text-base font-medium bg-transparent text-black border-2 border-black hover:bg-black hover:text-white active:scale-[0.98] transition-all duration-200"
@@ -174,10 +174,10 @@ export default function HomePage() {
         </section>
 
         {/* About Section */}
-        <section className="py-20 px-8 bg-white" id="about">
+        <section className="py-12 px-8 bg-white" id="about">
           <div className="max-w-[900px] mx-auto">
             <ScrollReveal>
-              <div className="text-center mb-16">
+              <div className="text-center mb-8">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-4 text-black">
                   Custom Tattoo Art
                 </h2>
@@ -192,10 +192,10 @@ export default function HomePage() {
         </section>
 
         {/* Process Section */}
-        <section className="py-28 px-8 bg-white" id="process">
+        <section className="py-16 px-8 bg-white" id="process">
           <div className="max-w-[1280px] mx-auto">
             <ScrollReveal>
-              <div className="text-center mb-16">
+              <div className="text-center mb-10">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-4 text-black">
                   How It Works
                 </h2>
@@ -208,7 +208,7 @@ export default function HomePage() {
             <div className="max-w-[800px] mx-auto" ref={processStepsRef}>
               {processSteps.map((step, index) => (
                 <ScrollReveal key={index} delay={index * 0.15} distance={50}>
-                  <div className="flex flex-col md:flex-row gap-8 md:gap-16 mb-24">
+                  <div className="flex flex-col md:flex-row gap-6 md:gap-12 mb-12">
                     <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full border-2 border-black flex items-center justify-center font-serif text-2xl font-semibold text-black">
                       {step.number}
                     </div>
@@ -228,13 +228,13 @@ export default function HomePage() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-28 px-8 bg-black text-white text-center">
+        <section className="py-16 px-8 bg-black text-white text-center">
           <div className="max-w-[1280px] mx-auto">
             <ScrollReveal duration={0.8}>
-              <h2 className="font-serif text-[clamp(2.5rem,5vw,4rem)] font-normal mb-8">
+              <h2 className="font-serif text-[clamp(2.5rem,5vw,4rem)] font-normal mb-6">
                 Ready to Start Your Tattoo Journey?
               </h2>
-              <p className="text-lg text-gray-light mb-16 max-w-[600px] mx-auto">
+              <p className="text-lg text-gray-light mb-10 max-w-[600px] mx-auto">
                 Book a free consultation to discuss your custom piece.
               </p>
               <div className="flex gap-8 justify-center flex-wrap">

@@ -50,7 +50,7 @@ export default function AboutPage() {
 
       <main className="pt-20">
         {/* About Hero */}
-        <section className="pt-44 pb-28 px-12 text-center bg-white">
+        <section className="pt-28 pb-16 px-12 text-center bg-white">
           <Parallax speed={0.5} direction="up">
             <h1 className="font-serif text-[clamp(3.5rem,7vw,4.75rem)] font-light tracking-[-0.02em] mb-8 text-black">
               About Me
@@ -63,9 +63,9 @@ export default function AboutPage() {
         </section>
 
         {/* Bio Section - Side by Side */}
-        <section className="py-28 px-12 bg-white">
+        <section className="py-16 px-12 bg-white">
           <div className="max-w-[1300px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-14 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-10 lg:gap-16 items-center">
               {/* Image Carousel */}
               <Parallax speed={0.4} direction="up">
                 <ImageCarousel
@@ -78,16 +78,16 @@ export default function AboutPage() {
               {/* Text */}
               <Parallax speed={0.55} direction="up">
                 <div>
-                  <h2 className="font-serif text-[clamp(2.25rem,4vw,3rem)] font-normal mb-8 text-black">
+                  <h2 className="font-serif text-[clamp(2.25rem,4vw,3rem)] font-normal mb-6 text-black">
                     My Story
                   </h2>
-                  <p className="text-[1.0625rem] leading-relaxed text-gray mb-7">
+                  <p className="text-[1.0625rem] leading-relaxed text-gray mb-5">
                     With 8 years of professional tattooing and a Bachelor of Fine Art,
                     I&apos;ve developed a practice rooted in artistic integrity and technical skill.
                     What began as a passion for creating beautiful, meaningful art has evolved into
                     a dedicated craft I refine every single day.
                   </p>
-                  <p className="text-[1.0625rem] leading-relaxed text-gray mb-7">
+                  <p className="text-[1.0625rem] leading-relaxed text-gray mb-5">
                     I specialise in fine art colour realism, with a particular focus on botanical
                     and nature-inspired designs. Every tattoo is custom-designed for you—no flash,
                     no templates. I believe your tattoo should be as unique as you are, flowing
@@ -106,10 +106,10 @@ export default function AboutPage() {
         </section>
 
         {/* Inspiration Gallery */}
-        <section className="py-28 px-12 bg-[#FAFAFA]">
+        <section className="py-16 px-12 bg-[#FAFAFA]">
           <div className="max-w-[1300px] mx-auto">
             <Parallax speed={0.5} direction="up">
-              <div className="text-center mb-16">
+              <div className="text-center mb-10">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal text-black mb-6">
                   What Inspires Me
                 </h2>
@@ -120,7 +120,7 @@ export default function AboutPage() {
             </Parallax>
 
             <Parallax speed={0.5} direction="up">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {inspirationImages.map((image, index) => (
                   <div
                     key={index}
@@ -141,10 +141,10 @@ export default function AboutPage() {
         </section>
 
         {/* Specialties Section - Horizontal */}
-        <section className="py-28 px-12 bg-black text-white">
+        <section className="py-16 px-12 bg-black text-white">
           <div className="max-w-[1300px] mx-auto">
             <Parallax speed={0.5} direction="up">
-              <div className="text-center mb-20">
+              <div className="text-center mb-12">
                 <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal text-white">
                   What I Do Best
                 </h2>
@@ -152,13 +152,13 @@ export default function AboutPage() {
             </Parallax>
 
             <Parallax speed={0.5} direction="up">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-16">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
                 {specialties.map((specialty) => (
                   <div key={specialty.number} className="text-center">
-                    <span className="font-serif text-[3.25rem] font-light text-gray-light mb-6 block">
+                    <span className="font-serif text-[3.25rem] font-light text-gray-light mb-4 block">
                       {specialty.number}
                     </span>
-                    <h3 className="text-xl font-semibold tracking-wider uppercase mb-5 text-white">
+                    <h3 className="text-xl font-semibold tracking-wider uppercase mb-4 text-white">
                       {specialty.title}
                     </h3>
                     <p className="text-base leading-relaxed text-gray-light">
@@ -172,18 +172,18 @@ export default function AboutPage() {
         </section>
 
         {/* Contact Section */}
-        <section className="py-28 px-12 bg-[#FAFAFA] text-center">
+        <section className="py-16 px-12 bg-[#FAFAFA] text-center">
           <Parallax speed={0.5} direction="up">
             <div className="max-w-[750px] mx-auto">
-              <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-8 text-black">
+              <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal mb-6 text-black">
                 Let&apos;s Connect
               </h2>
-              <p className="text-lg leading-relaxed text-gray mb-14">
+              <p className="text-lg leading-relaxed text-gray mb-10">
                 Ready to start your next piece? Have questions about the process?
                 I&apos;d love to hear from you.
               </p>
 
-              <div className="flex flex-col md:flex-row justify-center gap-10 md:gap-16 mb-14">
+              <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-12 mb-10">
                 <div className="flex flex-col items-center gap-3.5">
                   <span className="text-[0.8125rem] font-semibold tracking-wider uppercase text-gray">
                     Email
@@ -212,7 +212,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-7 mb-14">
+              <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-7 mb-10">
                 <a
                   href="https://instagram.com/nesrinkaraa_"
                   target="_blank"

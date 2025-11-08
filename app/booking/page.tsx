@@ -88,7 +88,7 @@ export default function BookingPage() {
     <>
       <Navigation />
 
-      <main className="min-h-screen pt-20 pb-12 bg-white">
+      <main className="min-h-screen pt-20 pb-8 bg-white">
         {/* Progress Indicator */}
         {currentStep <= totalSteps && (
           <div className="fixed top-20 left-0 right-0 z-40 bg-white border-b border-gray-light">
@@ -118,14 +118,14 @@ export default function BookingPage() {
           {currentStep === 1 && (
             <Parallax speed={0.5} direction="up">
               <form onSubmit={handleSubmit} className="animate-fadeIn">
-                <h1 className="font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-light mb-6 text-black text-center">
+                <h1 className="font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-light mb-4 text-black text-center">
                   Book Your Tattoo
                 </h1>
-                <p className="text-lg text-gray mb-16 leading-relaxed text-center">
+                <p className="text-lg text-gray mb-10 leading-relaxed text-center">
                   How big are you thinking?
                 </p>
 
-                <div className="space-y-4 mb-12">
+                <div className="space-y-4 mb-8">
                   {[
                     { value: "Small (under 10cm)", label: "Small", desc: "Under 10cm" },
                     { value: "Medium (10-20cm)", label: "Medium", desc: "10-20cm" },
@@ -168,14 +168,14 @@ export default function BookingPage() {
           {currentStep === 2 && (
             <Parallax speed={0.5} direction="up">
               <form onSubmit={handleSubmit} className="animate-fadeIn">
-                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
+                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-4 text-black text-center">
                   Where on your body?
                 </h2>
-                <p className="text-base text-gray mb-12 text-center">
+                <p className="text-base text-gray mb-8 text-center">
                   Select the general area
                 </p>
 
-                <div className="space-y-4 mb-12">
+                <div className="space-y-4 mb-8">
                   {[
                     "Arm",
                     "Leg",
@@ -204,7 +204,7 @@ export default function BookingPage() {
                 </div>
 
                 {formData.location === "Other" && (
-                  <div className="mb-12">
+                  <div className="mb-8">
                     <label className="block text-sm font-medium text-black mb-3">
                       Please specify the location
                     </label>
@@ -243,10 +243,10 @@ export default function BookingPage() {
           {currentStep === 3 && (
             <Parallax speed={0.5} direction="up">
               <form onSubmit={handleSubmit} className="animate-fadeIn">
-                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
+                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-4 text-black text-center">
                   When works for you?
                 </h2>
-                <p className="text-base text-gray mb-12 text-center">
+                <p className="text-base text-gray mb-8 text-center">
                   Select preferred dates and times
                 </p>
 
@@ -291,7 +291,7 @@ export default function BookingPage() {
                   </div>
                 </div>
 
-                <div className="mb-12">
+                <div className="mb-8">
                   <label className="block text-sm font-medium text-black mb-4">
                     Preferred Times (select all that work)
                   </label>
@@ -348,14 +348,14 @@ export default function BookingPage() {
           {currentStep === 4 && (
             <Parallax speed={0.5} direction="up">
               <form onSubmit={handleSubmit} className="animate-fadeIn">
-                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
+                <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-4 text-black text-center">
                   How can I reach you?
                 </h2>
-                <p className="text-base text-gray mb-12 text-center">
+                <p className="text-base text-gray mb-8 text-center">
                   Your contact information
                 </p>
 
-                <div className="space-y-6 mb-12">
+                <div className="space-y-6 mb-8">
                   <div>
                     <label className="block text-sm font-medium text-black mb-3">
                       Name
@@ -437,14 +437,14 @@ export default function BookingPage() {
           {/* Step 5: Review */}
           {currentStep === 5 && (
             <div className="animate-fadeIn">
-              <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-6 text-black text-center">
+              <h2 className="font-serif text-[clamp(2rem,5vw,2.5rem)] font-light mb-4 text-black text-center">
                 Review your booking
               </h2>
-              <p className="text-base text-gray mb-12 text-center">
+              <p className="text-base text-gray mb-8 text-center">
                 Make sure everything looks good before submitting
               </p>
 
-              <div className="mb-12 space-y-6">
+              <div className="mb-8 space-y-6">
                 <div className="border-t border-gray-light pt-6">
                   <h3 className="text-sm font-medium text-black mb-4 uppercase tracking-wider">
                     Tattoo Details
@@ -579,7 +579,7 @@ export default function BookingPage() {
 
           {/* Success Screen */}
           {currentStep === totalSteps + 1 && (
-            <div className="text-center py-20 animate-fadeIn">
+            <div className="text-center py-12 animate-fadeIn">
               <div className="mb-8">
                 <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-black flex items-center justify-center">
                   <svg
@@ -596,10 +596,10 @@ export default function BookingPage() {
                     />
                   </svg>
                 </div>
-                <h2 className="font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-light mb-6 text-black">
+                <h2 className="font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-light mb-4 text-black">
                   Request Received!
                 </h2>
-                <p className="text-lg text-gray mb-12 max-w-md mx-auto">
+                <p className="text-lg text-gray mb-8 max-w-md mx-auto">
                   Thanks for your booking request. I&apos;ll review your information
                   and get back to you within 24 hours.
                 </p>
