@@ -142,7 +142,7 @@ export default function HomePage() {
                 return (
                   <div
                     key={index}
-                    className="bg-white overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-lg"
+                    className="bg-white overflow-hidden group transition-all duration-300 hover:shadow-lg"
                   >
                     <Image
                       src={src}

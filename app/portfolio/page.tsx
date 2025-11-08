@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -18,7 +18,6 @@ type Category = "custom" | "fingernail" | "coverup";
 export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState<Category>("custom");
   const [loadedCount, setLoadedCount] = useState(12);
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   // Portfolio data organized by actual image content from image-seo-descriptions.md
   const portfolioItems: PortfolioItem[] = [
@@ -122,47 +121,7 @@ export default function PortfolioPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const openLightbox = (index: number) => {
-    setLightboxIndex(index);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeLightbox = () => {
-    setLightboxIndex(null);
-    document.body.style.overflow = 'auto';
-  };
-
-  const goToNext = useCallback(() => {
-    if (lightboxIndex !== null && lightboxIndex < visibleItems.length - 1) {
-      setLightboxIndex(lightboxIndex + 1);
-    }
-  }, [lightboxIndex, visibleItems.length]);
-
-  const goToPrevious = useCallback(() => {
-    if (lightboxIndex !== null && lightboxIndex > 0) {
-      setLightboxIndex(lightboxIndex - 1);
-    }
-  }, [lightboxIndex]);
-
   const currentCategory = categories.find(cat => cat.id === activeCategory);
-
-  // Keyboard navigation for lightbox
-  useEffect(() => {
-    if (lightboxIndex === null) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeLightbox();
-      } else if (e.key === 'ArrowRight') {
-        goToNext();
-      } else if (e.key === 'ArrowLeft') {
-        goToPrevious();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxIndex, visibleItems.length, goToNext, goToPrevious]);
 
   return (
     <>
@@ -228,10 +187,9 @@ export default function PortfolioPage() {
           <div className="max-w-[1600px] mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-auto">
               {visibleItems.map((item, index) => (
-                <button
+                <div
                   key={item.id}
-                  onClick={() => openLightbox(index)}
-                  className="relative overflow-hidden bg-white group transition-all duration-500 hover:shadow-2xl w-full cursor-pointer"
+                  className="relative overflow-hidden bg-white group transition-all duration-500 hover:shadow-2xl w-full"
                 >
                   {/* Image Container */}
                   <div className="relative overflow-hidden">
@@ -255,7 +213,7 @@ export default function PortfolioPage() {
                     <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       #{item.id}
                     </div>
-                  </button>
+                  </div>
                 ))}
               </div>
 
@@ -301,88 +259,6 @@ export default function PortfolioPage() {
       </main>
 
       <Footer />
-
-      {/* Lightbox */}
-      {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm"
-          onClick={closeLightbox}
-        >
-          {/* Close Button */}
-          <button
-            onClick={closeLightbox}
-            className="absolute top-6 right-6 z-60 text-white hover:text-gray-300 transition-colors"
-            aria-label="Close lightbox"
-          >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
-          {/* Previous Button */}
-          {lightboxIndex > 0 && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goToPrevious();
-              }}
-              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-60 text-white hover:text-gray-300 transition-colors p-3 md:p-4 bg-black/30 md:bg-transparent rounded-full touch-manipulation"
-              aria-label="Previous image"
-            >
-              <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-          )}
-
-          {/* Next Button */}
-          {lightboxIndex < visibleItems.length - 1 && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goToNext();
-              }}
-              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-60 text-white hover:text-gray-300 transition-colors p-3 md:p-4 bg-black/30 md:bg-transparent rounded-full touch-manipulation"
-              aria-label="Next image"
-            >
-              <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          )}
-
-          {/* Image Container */}
-          <div
-            className="relative max-w-7xl max-h-[90vh] mx-auto px-4 md:px-16"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={visibleItems[lightboxIndex].src}
-              alt={visibleItems[lightboxIndex].title}
-              width={1200}
-              height={1200}
-              quality={95}
-              className="max-w-full max-h-[90vh] w-auto h-auto object-contain"
-            />
-
-            {/* Image Info */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-              <p className="text-sm font-medium tracking-wider uppercase mb-1">
-                {visibleItems[lightboxIndex].title}
-              </p>
-              <p className="text-xs text-gray-300">
-                {lightboxIndex + 1} of {visibleItems.length}
-              </p>
-            </div>
-          </div>
-
-          {/* Navigation hint */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-xs tracking-wider text-center px-4">
-            <span className="hidden md:inline">Use arrow keys to navigate • ESC to close</span>
-            <span className="md:hidden">Tap arrows to navigate • Tap outside to close</span>
-          </div>
-        </div>
-      )}
 
       <style jsx>{`
         @media (prefers-reduced-motion: reduce) {
