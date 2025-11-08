@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -132,17 +132,17 @@ export default function PortfolioPage() {
     document.body.style.overflow = 'auto';
   };
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     if (lightboxIndex !== null && lightboxIndex < visibleItems.length - 1) {
       setLightboxIndex(lightboxIndex + 1);
     }
-  };
+  }, [lightboxIndex, visibleItems.length]);
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     if (lightboxIndex !== null && lightboxIndex > 0) {
       setLightboxIndex(lightboxIndex - 1);
     }
-  };
+  }, [lightboxIndex]);
 
   const currentCategory = categories.find(cat => cat.id === activeCategory);
 
