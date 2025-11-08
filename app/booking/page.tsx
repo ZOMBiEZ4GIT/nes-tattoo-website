@@ -62,11 +62,14 @@ export default function BookingPage() {
         if (data.success) {
           nextStep(); // Move to success screen
         } else {
-          setSubmitError(data.message || "Failed to submit booking. Please try again.");
+          // Show more detailed error message
+          const errorMsg = data.message || data.errors?.join(", ") || "Failed to submit booking. Please try again.";
+          setSubmitError(errorMsg);
+          console.error("Booking API error:", data);
         }
       } catch (error) {
         console.error("Booking submission error:", error);
-        setSubmitError("An unexpected error occurred. Please try again.");
+        setSubmitError("Failed to send booking request. Please try again or contact us directly.");
       } finally {
         setIsSubmitting(false);
       }
