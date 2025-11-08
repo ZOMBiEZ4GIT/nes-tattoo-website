@@ -88,10 +88,10 @@ export default function HomePage() {
           <Parallax speed={0.6} direction="up">
             <div className="mb-10 opacity-0 animate-[fadeInUp_0.8s_ease_0.3s_forwards]">
               <h1 className="font-serif text-[clamp(3rem,8vw,6rem)] font-light tracking-[-0.01em] leading-[1.1] mb-2 text-black">
-                Your Vision,
+                Let's create
               </h1>
               <div className="font-serif text-[clamp(3rem,8vw,6rem)] font-light tracking-[-0.01em] leading-[1.1] text-gray">
-                My Art
+                something together
               </div>
             </div>
           </Parallax>

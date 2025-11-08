@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import PasswordGate from "@/components/PasswordGate";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SchemaMarkup from "@/components/SchemaMarkup";
 
@@ -86,7 +85,7 @@ export default function RootLayout({
         <SchemaMarkup />
       </head>
       <body className={inter.className}>
-        <PasswordGate>{children}</PasswordGate>
+        {children}
         <WhatsAppButton />
       </body>
     </html>

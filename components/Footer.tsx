@@ -14,7 +14,7 @@ export default function Footer() {
               NES TATTOO
             </h3>
             <p className="text-sm text-gray-light italic">
-              The art is the color
+              Melbourne botanical tattoo artist
             </p>
           </div>
 
