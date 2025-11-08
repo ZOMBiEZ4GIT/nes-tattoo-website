@@ -148,6 +148,7 @@ export default function PortfolioPage() {
                     <Image
                       src={src}
                       alt={item.title}
+                      title=""
                       fill
                       className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
                     />

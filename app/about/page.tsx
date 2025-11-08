@@ -5,8 +5,23 @@ import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Parallax from "@/components/Parallax";
+import ImageCarousel from "@/components/ImageCarousel";
 
 export default function AboutPage() {
+  const profileImages = [
+    "/images/profile/profile-01.jpg",
+    "/images/profile/profile-02.jpg",
+  ];
+
+  const inspirationImages = [
+    "/images/inspiration/inspiration-01.jpg",
+    "/images/inspiration/inspiration-02.jpg",
+    "/images/inspiration/inspiration-03.jpg",
+    "/images/inspiration/inspiration-04.jpg",
+    "/images/inspiration/inspiration-05.jpg",
+    "/images/inspiration/inspiration-06.jpg",
+  ];
+
   const specialties = [
     {
       number: "01",
@@ -65,16 +80,13 @@ export default function AboutPage() {
         <section className="py-28 px-12 bg-white">
           <div className="max-w-[1300px] mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-14 lg:gap-20 items-center">
-              {/* Image */}
+              {/* Image Carousel */}
               <Parallax speed={0.4} direction="up">
-                <div className="relative aspect-[4/5] overflow-hidden border border-gray-light group">
-                  <Image
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop"
-                    alt="NES Tattoo Artist"
-                    fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400"
-                  />
-                </div>
+                <ImageCarousel
+                  images={profileImages}
+                  alt="NES Tattoo Artist"
+                  autoPlayInterval={5000}
+                />
               </Parallax>
 
               {/* Text */}
@@ -104,6 +116,41 @@ export default function AboutPage() {
                 </div>
               </Parallax>
             </div>
+          </div>
+        </section>
+
+        {/* Inspiration Gallery */}
+        <section className="py-28 px-12 bg-[#FAFAFA]">
+          <div className="max-w-[1300px] mx-auto">
+            <Parallax speed={0.5} direction="up">
+              <div className="text-center mb-16">
+                <h2 className="font-serif text-[clamp(2.5rem,5vw,3.5rem)] font-normal text-black mb-6">
+                  What Inspires Me
+                </h2>
+                <p className="text-[1.1875rem] leading-relaxed text-gray max-w-[720px] mx-auto">
+                  A glimpse into the world that fuels my creativity and influences my artistic vision.
+                </p>
+              </div>
+            </Parallax>
+
+            <Parallax speed={0.5} direction="up">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {inspirationImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className="relative aspect-square overflow-hidden border border-gray-light group"
+                  >
+                    <Image
+                      src={image}
+                      alt={`Inspiration ${index + 1}`}
+                      title=""
+                      fill
+                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-400 group-hover:scale-105"
+                    />
+                  </div>
+                ))}
+              </div>
+            </Parallax>
           </div>
         </section>
 

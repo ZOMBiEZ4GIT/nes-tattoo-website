@@ -1,9 +1,8 @@
 "use client";
 
 export default function WhatsAppButton() {
-  // Replace this with Nes's actual WhatsApp number (format: country code + number, no spaces/symbols)
-  // Example: For Australian number 0412 345 678, use: 61412345678
-  const whatsappNumber = "61400000000"; // PLACEHOLDER - UPDATE WITH REAL NUMBER
+  // Nes's WhatsApp number
+  const whatsappNumber = "61447955182";
 
   const message = encodeURIComponent("Hi! I'm interested in booking a tattoo consultation.");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
