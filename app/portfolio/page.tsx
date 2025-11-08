@@ -162,7 +162,7 @@ export default function PortfolioPage() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxIndex, visibleItems.length]);
+  }, [lightboxIndex, visibleItems.length, goToNext, goToPrevious]);
 
   return (
     <>
@@ -176,7 +176,7 @@ export default function PortfolioPage() {
               Portfolio
             </h1>
             <p className="text-lg leading-relaxed text-gray-600 max-w-[700px] mx-auto mb-4">
-              Some of my favourite pieces I've been lucky enough to create
+              Some of my favourite pieces I&apos;ve been lucky enough to create
             </p>
           </ScrollReveal>
         </section>
@@ -296,7 +296,7 @@ export default function PortfolioPage() {
             {!hasMore && filteredItems.length > 12 && (
               <div className="text-center mt-16 py-8 border-t border-gray-200">
                 <p className="text-gray-500 text-sm tracking-wider uppercase">
-                  You've viewed all {filteredItems.length} pieces in {currentCategory?.name}
+                  You&apos;ve viewed all {filteredItems.length} pieces in {currentCategory?.name}
                 </p>
               </div>
             )}
